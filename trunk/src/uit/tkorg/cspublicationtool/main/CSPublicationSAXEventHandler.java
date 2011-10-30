@@ -19,6 +19,7 @@ public class CSPublicationSAXEventHandler extends DefaultHandler{
        
     private String recordTag;  
     private String value;
+    private int count=0;
     private uit.tkorg.cspublicationtool.saxparser.model.Paper paper;
     private ArrayList<Author> authors;
     
@@ -48,12 +49,14 @@ public class CSPublicationSAXEventHandler extends DefaultHandler{
         if (qName.equals(recordTag)) {
             this.paper.setAuthors(this.authors);
             this.authors = null;
+            count++;
             //write to file.
             System.out.println(this.paper.getTitle());
             for (int i = 0; i < this.paper.getAuthors().size(); i++) {
                System.out.println(this.paper.getAuthors().get(i).getName());
             }
             System.out.println("=============================================");
+            System.out.println("Thu tu paper:"+count);
             //
             this.paper = null;            
         }        
@@ -64,8 +67,10 @@ public class CSPublicationSAXEventHandler extends DefaultHandler{
         super.startElement(uri, localName, qName, attributes);            
         if ((attributes.getLength()>0) && (attributes.getValue("key")!=null)) {               
             recordTag = qName;
+
             this.paper = new uit.tkorg.cspublicationtool.saxparser.model.Paper();
-            this.authors = new ArrayList<Author>();            
+            
+            this.authors = new ArrayList<Author>();        
             return;
         }
     } 
