@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="uit.tkorg.cspublicationtool.model.AuthorInstance" table="authorinstance"/>
+  
+        <id column="autoID" name="autoID" type="integer">
+            <generator class="native"/>
+        </id>
+        
+        <property column="instanceName" name="instanceName" type="string"/>
+</hibernate-mapping>
