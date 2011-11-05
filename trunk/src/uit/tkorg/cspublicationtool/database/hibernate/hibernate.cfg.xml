@@ -19,5 +19,23 @@
     <mapping resource="uit/tkorg/cspublicationtool/database/hibernate/Publisher.hbm.xml"/>
     <mapping resource="uit/tkorg/cspublicationtool/database/hibernate/Author.hbm.xml"/>
     <mapping resource="uit/tkorg/cspublicationtool/database/hibernate/Paper.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/Magazine.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/Reviewer.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/Conference.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/PaperReviewer.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/PaperType.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/Author.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/ConferencePcmember.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/PaperPaper.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/Paper.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/Keyword.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/Publisher.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/Org.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/Pcmember.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/Comment.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/Subdomain.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/Domain.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/Journal.hbm.xml"/>
+    <mapping resource="uit/tkorg/cspublicationtool/entities/Authorinstance.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

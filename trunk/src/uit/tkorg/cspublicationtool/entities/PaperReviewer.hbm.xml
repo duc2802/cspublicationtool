@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 5, 2011 11:29:50 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="uit.tkorg.cspublicationtool.entities.PaperReviewer" table="paper_reviewer" catalog="cspublicationcrawler">
+        <composite-id name="id" class="uit.tkorg.cspublicationtool.entities.PaperReviewerId">
+            <key-property name="idPaper" type="int">
+                <column name="idPaper" />
+            </key-property>
+            <key-property name="idReviewer" type="int">
+                <column name="idReviewer" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="reviewer" class="uit.tkorg.cspublicationtool.entities.Reviewer" update="false" insert="false" fetch="select">
+            <column name="idReviewer" not-null="true" />
+        </many-to-one>
+        <many-to-one name="paper" class="uit.tkorg.cspublicationtool.entities.Paper" update="false" insert="false" fetch="select">
+            <column name="idPaper" not-null="true" />
+        </many-to-one>
+        <property name="rating" type="java.lang.Integer">
+            <column name="rating" />
+        </property>
+        <property name="content" type="string">
+            <column name="content" length="20000" />
+        </property>
+    </class>
+</hibernate-mapping>

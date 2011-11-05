@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 5, 2011 11:29:50 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="uit.tkorg.cspublicationtool.entities.Reviewer" table="reviewer" catalog="cspublicationcrawler">
+        <id name="idReviewer" type="java.lang.Integer">
+            <column name="idReviewer" />
+            <generator class="identity" />
+        </id>
+        <property name="reviewerName" type="string">
+            <column name="reviewerName" length="1000" />
+        </property>
+        <property name="image" type="string">
+            <column name="image" length="1000" />
+        </property>
+        <property name="emailAddress" type="string">
+            <column name="emailAddress" length="1000" />
+        </property>
+        <property name="website" type="string">
+            <column name="website" length="1000" />
+        </property>
+        <property name="organization" type="string">
+            <column name="organization" length="1000" />
+        </property>
+        <set name="paperReviewers" inverse="true">
+            <key>
+                <column name="idReviewer" not-null="true" />
+            </key>
+            <one-to-many class="uit.tkorg.cspublicationtool.entities.PaperReviewer" />
+        </set>
+    </class>
+</hibernate-mapping>

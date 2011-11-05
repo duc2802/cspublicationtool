@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 5, 2011 11:29:50 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="uit.tkorg.cspublicationtool.entities.PaperPaper" table="paper_paper" catalog="cspublicationcrawler">
+        <composite-id name="id" class="uit.tkorg.cspublicationtool.entities.PaperPaperId">
+            <key-property name="idPaper" type="int">
+                <column name="idPaper" />
+            </key-property>
+            <key-property name="idPaperRef" type="int">
+                <column name="idPaperRef" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="paperByIdPaperRef" class="uit.tkorg.cspublicationtool.entities.Paper" update="false" insert="false" fetch="select">
+            <column name="idPaperRef" not-null="true" />
+        </many-to-one>
+        <many-to-one name="paperByIdPaper" class="uit.tkorg.cspublicationtool.entities.Paper" update="false" insert="false" fetch="select">
+            <column name="idPaper" not-null="true" />
+        </many-to-one>
+        <property name="citationContext" type="string">
+            <column name="citationContext" length="20000" />
+        </property>
+    </class>
+</hibernate-mapping>
