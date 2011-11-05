@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="CSPublicationCrawler"/>
+  <table-filter match-name="paper_paper"/>
+  <table-filter match-name="domain"/>
+  <table-filter match-name="paper_reviewer"/>
+  <table-filter match-name="author"/>
+  <table-filter match-name="conference_pcmember"/>
+  <table-filter match-name="org"/>
+  <table-filter match-name="magazine"/>
+  <table-filter match-name="authorinstance"/>
+  <table-filter match-name="subdomain"/>
+  <table-filter match-name="paper"/>
+  <table-filter match-name="comment"/>
+  <table-filter match-name="paper_keyword"/>
+  <table-filter match-name="publisher"/>
+  <table-filter match-name="author_paper"/>
+  <table-filter match-name="subdomain_paper"/>
+  <table-filter match-name="pcmember"/>
+  <table-filter match-name="publisher_conference"/>
+  <table-filter match-name="paper_type"/>
+  <table-filter match-name="keyword"/>
+  <table-filter match-name="reviewer"/>
+  <table-filter match-name="journal"/>
+  <table-filter match-name="conference"/>
+</hibernate-reverse-engineering>

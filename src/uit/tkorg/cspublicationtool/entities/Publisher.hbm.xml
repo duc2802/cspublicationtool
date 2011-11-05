@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 5, 2011 11:29:50 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="uit.tkorg.cspublicationtool.entities.Publisher" table="publisher" catalog="cspublicationcrawler">
+        <id name="idPublisher" type="java.lang.Integer">
+            <column name="idPublisher" />
+            <generator class="identity" />
+        </id>
+        <property name="namePublisher" type="string">
+            <column name="namePublisher" length="1000" />
+        </property>
+        <set name="conferences" inverse="false" table="publisher_conference">
+            <key>
+                <column name="idPublisher" not-null="true" />
+            </key>
+            <many-to-many entity-name="uit.tkorg.cspublicationtool.entities.Conference">
+                <column name="idConference" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="papers" inverse="true">
+            <key>
+                <column name="idPublisher" />
+            </key>
+            <one-to-many class="uit.tkorg.cspublicationtool.entities.Paper" />
+        </set>
+    </class>
+</hibernate-mapping>
