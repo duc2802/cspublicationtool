@@ -14,12 +14,14 @@ import java.util.List;
 public class Paper {
     private ArrayList<Author> authors;
     private String title;
+    private String booktitle;
     private String papges;
     private String year;
     private String address;
     private String journal;
     private String volume;
     private String number;
+    private String month;
     private String url;
     private String ee;
     private String cdrom;
@@ -28,7 +30,99 @@ public class Paper {
     private String note;
     private String crossref;
     private String isbn;
+    private String series;
+    private String school;
+    private String chapter;
+    private String key;
+    private String mdate;
+    
+    public String generateImportAuthorSQLProcedure(){
+        StringBuilder sqlString = new StringBuilder();
+        sqlString.append("DELIMITER $$");        
+        sqlString.append("\n");
+        sqlString.append("CREATE PROCEDURE insertAuthor(nameAuthor NVARCHAR(50))");
+        sqlString.append("\n");
+        sqlString.append("BEGIN");
+	sqlString.append("\n");
+        sqlString.append("DECLARE fetchable INT DEFAULT 0;");
+	sqlString.append("\n");
+        sqlString.append("DECLARE a1 NVARCHAR(50);");
+	sqlString.append("\n");
+        sqlString.append("DECLARE a CURSOR FOR SELECT authorName FROM author WHERE authorName = nameAuthor;");
+	sqlString.append("\n");
+        sqlString.append("DECLARE CONTINUE HANDLER FOR NOT FOUND SET fetchable = 1;");
+	sqlString.append("\n");
+        sqlString.append("OPEN a;");
+	sqlString.append("\n");
+        sqlString.append("FETCH NEXT FROM a INTO a1;");
+	sqlString.append("\n");
+        sqlString.append("IF fetchable THEN INSERT INTO author(authorName) VALUES (nameAuthor);");
+	sqlString.append("\n");
+        sqlString.append("END IF;");
+	sqlString.append("\n");
+        sqlString.append("CLOSE a;");	
+        sqlString.append("\n");
+        sqlString.append("END$$");        
+        return sqlString.toString();
+    }
 
+    public String getBooktitle() {
+        return booktitle;
+    }
+
+    public void setBooktitle(String booktitle) {
+        this.booktitle = booktitle;
+    }
+        
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public void setMdate(String mdate) {
+        this.mdate = mdate;
+    }
+    
+    public String getKey() {
+        return key;
+    }
+
+    public String getMdate() {
+        return mdate;
+    }
+    
+    public String getChapter() {
+        return chapter;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public void setChapter(String chapter) {
+        this.chapter = chapter;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
+    }
+    
+    
     public String getAddress() {
         return address;
     }
