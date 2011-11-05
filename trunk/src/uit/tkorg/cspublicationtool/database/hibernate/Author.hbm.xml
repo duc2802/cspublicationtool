@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="uit.tkorg.cspublicationtool.model.Author" table="author"/>
+  
+        <id column="idAuthor" name="idAuthor" type="integer">
+            <generator class="native"/>
+        </id>
+        <property column="authorName" name="authorName" type="string"/>
+        <property column="image" name="image" type="string"/>
+        <property column="emailAdress" name="emailAdress" type="string"/>
+        <property column="website" name="website" type="string"/>
+        <property column="emailAdress" name="emailAdress" type="string"/>
+        <property column="duration" name="duration" type="string"/>
+        <property column="h_index;" name="h_index" type="integer"/>
+        <property column="g_index" name="g_index" type="integer"/>
+        <property column="url" name="url" type="string"/>
+        <many-to-one name="author" class="Author" column="author">
+        <set name="papers" table="author_paper">
+            <key column="idAuthor">
+            <many-to-many column="paper" class="Paper"/>
+        </set>
+        
+</hibernate-mapping>
