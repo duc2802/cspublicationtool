@@ -14,7 +14,10 @@ public class Author {
     public Author() {
         
     }
-
+    public String generateAutorImportCallProcedure(){
+        return "CALL insertAuthor('" + this.name + "');";
+    }
+    
     public String getName() {
         return name;
     }

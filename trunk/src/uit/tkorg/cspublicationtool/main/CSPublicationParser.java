@@ -31,7 +31,6 @@ public class CSPublicationParser {
             long totalTime = endTime - startTime;
             
             System.out.println("Time run programe"+endTime);
-
             
         } catch (Exception e) {
             System.out.print(e.getMessage());

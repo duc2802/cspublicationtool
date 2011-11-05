@@ -14,6 +14,6 @@ public class CSPublicationTool {
      * @param args the command line arguments
      */
     public static void main(String[] args) {      
-      CSPublicationParser p = new CSPublicationParser("F:\\Working\\UIT\\De Tai\\DBLP\\dblp.xml");        
+      CSPublicationParser p = new CSPublicationParser("E://Research//DBLP//dblp.xml");        
     }
 }
