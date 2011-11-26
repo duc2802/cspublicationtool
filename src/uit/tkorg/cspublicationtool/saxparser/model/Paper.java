@@ -6,66 +6,96 @@ package uit.tkorg.cspublicationtool.saxparser.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.sound.midi.SysexMessage;
 
 /**
  *
  * @author THANG
  *///author|editor|title|booktitle|pages|year|address|journal|volume|number|month|url|ee|cdrom|cite|publisher|note|crossref|isbn|series|school|chapter
 public class Paper {
+    private String paperType;
     private ArrayList<Author> authors;
-    private String title;
-    private String booktitle;
-    private String papges;
-    private String year;
-    private String address;
-    private String journal;
-    private String volume;
-    private String number;
-    private String month;
-    private String url;
-    private String ee;
-    private String cdrom;
-    private String cite;
-    private String publisher;
-    private String note;
-    private String crossref;
-    private String isbn;
-    private String series;
-    private String school;
-    private String chapter;
-    private String key;
-    private String mdate;
+    private String title = null;
+    private String booktitle = null;
+    private String papges = null;
+    private String year = null;
+    private String address = null;
+    private String journal = null;
+    private String volume = null;
+    private String number = null;
+    private String month = null;
+    private String url = null;
+    private String ee = null;
+    private String cdrom = null;
+    private String cite = null;
+    private String publisher = null;
+    private String note = null;
+    private String crossref = null;
+    private String isbn = null;
+    private String series = null;
+    private String school = null;
+    private String chapter = null;
+    private String key = null;
+    private String mdate = null;
     
-    public String generateImportAuthorSQLProcedure(){
-        StringBuilder sqlString = new StringBuilder();
-        sqlString.append("DELIMITER $$");        
-        sqlString.append("\n");
-        sqlString.append("CREATE PROCEDURE insertAuthor(nameAuthor NVARCHAR(50))");
-        sqlString.append("\n");
-        sqlString.append("BEGIN");
-	sqlString.append("\n");
-        sqlString.append("DECLARE fetchable INT DEFAULT 0;");
-	sqlString.append("\n");
-        sqlString.append("DECLARE a1 NVARCHAR(50);");
-	sqlString.append("\n");
-        sqlString.append("DECLARE a CURSOR FOR SELECT authorName FROM author WHERE authorName = nameAuthor;");
-	sqlString.append("\n");
-        sqlString.append("DECLARE CONTINUE HANDLER FOR NOT FOUND SET fetchable = 1;");
-	sqlString.append("\n");
-        sqlString.append("OPEN a;");
-	sqlString.append("\n");
-        sqlString.append("FETCH NEXT FROM a INTO a1;");
-	sqlString.append("\n");
-        sqlString.append("IF fetchable THEN INSERT INTO author(authorName) VALUES (nameAuthor);");
-	sqlString.append("\n");
-        sqlString.append("END IF;");
-	sqlString.append("\n");
-        sqlString.append("CLOSE a;");	
-        sqlString.append("\n");
-        sqlString.append("END$$");        
-        return sqlString.toString();
+    public String generateListAuthorCallStatement(){
+        StringBuffer contents = new StringBuffer();
+        for(int i = 0; i < this.authors.size(); i++){
+            contents.append(this.authors.get(i).generateAutorImportCallProcedure());
+            contents.append("\n");
+        }        
+        return contents.toString();
+    }
+    public String generateJournalCallStatement(){
+        return "CALL insertJournal('" + this.journal + "');";
+    }
+    
+    //public String generateMagazineCallStatement(){
+    //    return "CALL insertAuthor('" + this.address + "');";
+    //}
+    
+    public String generatePaperTypeCallStatement(){
+        return "CALL insertPaperType('" + this.paperType + "');";
+    }
+    
+   // public String generateConferenceCallStatement(){
+    //    return "CALL insertAuthor('" + this.address + "');";
+   //}
+    
+    public String generatePublisherCallStatement(){
+        return "CALL insertPublisher('" + this.publisher + "');";
+    }
+    public String generatePaperCallStatement(){
+        String str = "CALL insertPaper('', '"+this.isbn+"', '"+this.url+"', '"+this.title+"', '', '"+this.volume+"', '"+this.papges+"', "+this.year+", '', '', '', '"+this.journal+"', '', '', '"+this.publisher+"', '"+this.paperType+"','"+this.key+"', 0, '');";
+        return str;
+    }
+    public String generateAuthorPaperCallStatement(){
+        StringBuffer contents = new StringBuffer();
+        for(int i = 0; i < this.authors.size(); i++){
+            contents.append("CALL insertPaperAuthor('" + this.title + "','" + this.authors.get(i).getName() + "');");
+            contents.append("\n");
+        }        
+        return contents.toString();
+    }
+    
+    public void printOut(){
+        System.out.println("Title: " + this.getTitle());
+        System.out.println("DPLD Key: " + this.getKey());
+        System.out.println("DPLB MDate: " + this.getMdate());
+        for(int i = 0; i < this.authors.size(); i++){
+            System.out.println("Author: " + this.authors.get(i).generateAutorImportCallProcedure());
+        }
+        //System.out.println("");
     }
 
+    public String getPaperType() {
+        return paperType;
+    }
+
+    public void setPaperType(String paperType) {
+        this.paperType = paperType;
+    }
+    
     public String getBooktitle() {
         return booktitle;
     }
