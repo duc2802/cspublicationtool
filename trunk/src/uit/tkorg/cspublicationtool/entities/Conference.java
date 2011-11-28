@@ -1,5 +1,5 @@
 package uit.tkorg.cspublicationtool.entities;
-// Generated Nov 5, 2011 11:29:49 PM by Hibernate Tools 3.2.1.GA
+// Generated Nov 28, 2011 11:53:12 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -22,12 +22,11 @@ public class Conference  implements java.io.Serializable {
      private String url;
      private Set conferencePcmembers = new HashSet(0);
      private Set papers = new HashSet(0);
-     private Set publishers = new HashSet(0);
 
     public Conference() {
     }
 
-    public Conference(String conferenceName, String website, String organization, String organizedLocation, String duration, Integer yearStart, Integer yearEnd, String url, Set conferencePcmembers, Set papers, Set publishers) {
+    public Conference(String conferenceName, String website, String organization, String organizedLocation, String duration, Integer yearStart, Integer yearEnd, String url, Set conferencePcmembers, Set papers) {
        this.conferenceName = conferenceName;
        this.website = website;
        this.organization = organization;
@@ -38,7 +37,6 @@ public class Conference  implements java.io.Serializable {
        this.url = url;
        this.conferencePcmembers = conferencePcmembers;
        this.papers = papers;
-       this.publishers = publishers;
     }
    
     public Integer getIdConference() {
@@ -117,13 +115,6 @@ public class Conference  implements java.io.Serializable {
     
     public void setPapers(Set papers) {
         this.papers = papers;
-    }
-    public Set getPublishers() {
-        return this.publishers;
-    }
-    
-    public void setPublishers(Set publishers) {
-        this.publishers = publishers;
     }
 
 

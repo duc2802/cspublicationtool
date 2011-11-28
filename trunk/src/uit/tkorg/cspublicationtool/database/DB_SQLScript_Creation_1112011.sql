@@ -301,29 +301,6 @@ CREATE  TABLE IF NOT EXISTS `CSPublicationCrawler`.`Paper_Paper` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
--- -----------------------------------------------------
--- Table `CSPublicationCrawler`.`Publisher_Conference`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `CSPublicationCrawler`.`Publisher_Conference` ;
-
-CREATE  TABLE IF NOT EXISTS `CSPublicationCrawler`.`Publisher_Conference` (
-  `idPublisher` INT(10) UNSIGNED NOT NULL ,
-  `idConference` INT(10) UNSIGNED NOT NULL ,
-  PRIMARY KEY (`idPublisher`, `idConference`) ,
-  INDEX `fk_Publisher_has_Conference1` (`idPublisher` ASC) ,
-  INDEX `fk_Confence_of_Publisher1` (`idConference` ASC) ,
-  CONSTRAINT `fk_Publisher_has_Conference1`
-    FOREIGN KEY (`idPublisher` )
-    REFERENCES `CSPublicationCrawler`.`Publisher` (`idPublisher` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Confence_of_Publisher1`
-    FOREIGN KEY (`idConference` )
-    REFERENCES `CSPublicationCrawler`.`Conference` (`idConference` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
 -- Table `CSPublicationCrawler`.`Author_Paper`

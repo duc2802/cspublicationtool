@@ -15,4 +15,4 @@ public class PaperBO extends ManagerBase <Paper> {
 
     public PaperBO() throws Exception {
     }
-}
+    }

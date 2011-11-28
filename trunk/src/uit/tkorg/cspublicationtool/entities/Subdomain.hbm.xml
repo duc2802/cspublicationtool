@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 5, 2011 11:29:50 PM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Nov 28, 2011 11:53:13 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="uit.tkorg.cspublicationtool.entities.Subdomain" table="subdomain" catalog="cspublicationcrawler">
         <id name="idSubdomain" type="java.lang.Integer">
@@ -14,13 +14,5 @@
         <property name="subdomainName" type="string">
             <column name="subdomainName" length="1000" />
         </property>
-        <set name="papers" inverse="true" table="subdomain_paper">
-            <key>
-                <column name="idSubdomain" not-null="true" />
-            </key>
-            <many-to-many entity-name="uit.tkorg.cspublicationtool.entities.Paper">
-                <column name="idPaper" not-null="true" />
-            </many-to-many>
-        </set>
     </class>
 </hibernate-mapping>
