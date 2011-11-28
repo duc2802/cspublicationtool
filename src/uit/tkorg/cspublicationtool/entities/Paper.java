@@ -1,5 +1,5 @@
 package uit.tkorg.cspublicationtool.entities;
-// Generated Nov 5, 2011 11:29:49 PM by Hibernate Tools 3.2.1.GA
+// Generated Nov 28, 2011 11:53:12 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -36,13 +36,12 @@ public class Paper  implements java.io.Serializable {
      private Set paperPapersForIdPaper = new HashSet(0);
      private Set paperPapersForIdPaperRef = new HashSet(0);
      private Set authors = new HashSet(0);
-     private Set subdomains = new HashSet(0);
      private Set paperReviewers = new HashSet(0);
 
     public Paper() {
     }
 
-    public Paper(Journal journal, Conference conference, PaperType paperType, Magazine magazine, Publisher publisher, String doi, String isbn, String url, String title, String abstract_, String volume, String pages, Integer year, String viewPublication, String bibTex, String endNote, String dblpKey, String paperFile, Set keywords, Set comments, Set paperPapersForIdPaper, Set paperPapersForIdPaperRef, Set authors, Set subdomains, Set paperReviewers) {
+    public Paper(Journal journal, Conference conference, PaperType paperType, Magazine magazine, Publisher publisher, String doi, String isbn, String url, String title, String abstract_, String volume, String pages, Integer year, String viewPublication, String bibTex, String endNote, String dblpKey, String paperFile, Set keywords, Set comments, Set paperPapersForIdPaper, Set paperPapersForIdPaperRef, Set authors, Set paperReviewers) {
        this.journal = journal;
        this.conference = conference;
        this.paperType = paperType;
@@ -66,7 +65,6 @@ public class Paper  implements java.io.Serializable {
        this.paperPapersForIdPaper = paperPapersForIdPaper;
        this.paperPapersForIdPaperRef = paperPapersForIdPaperRef;
        this.authors = authors;
-       this.subdomains = subdomains;
        this.paperReviewers = paperReviewers;
     }
    
@@ -244,13 +242,6 @@ public class Paper  implements java.io.Serializable {
     
     public void setAuthors(Set authors) {
         this.authors = authors;
-    }
-    public Set getSubdomains() {
-        return this.subdomains;
-    }
-    
-    public void setSubdomains(Set subdomains) {
-        this.subdomains = subdomains;
     }
     public Set getPaperReviewers() {
         return this.paperReviewers;

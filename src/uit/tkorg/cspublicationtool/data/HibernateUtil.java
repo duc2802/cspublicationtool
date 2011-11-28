@@ -14,6 +14,9 @@ import org.hibernate.criterion.*;
 /**
  *
  * @author tiendv
+ * 
+ * Quan ly cac session va transaction cua Hibernate
+ * 
  */
 public class HibernateUtil {
 

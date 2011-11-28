@@ -8,6 +8,8 @@ package uit.tkorg.cspublicationtool.data;
 /**
  *
  * @author tiendv
+ * 
+ * Tao mot temple object thuc thi cac sesion va cac phuong thuc update insert query cua hibernate
  */
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;

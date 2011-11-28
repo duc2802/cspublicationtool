@@ -11,55 +11,62 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.xml.sax.*;
 import org.xml.sax.helpers.*; 
-import uit.tkorg.cspublicationtool.saxparser.model.Author;
-import uit.tkorg.cspublicationtool.saxparser.model.Paper;
+import uit.tkorg.cspublicationtool.bo.*;
+import uit.tkorg.cspublicationtool.entities.*;
 /**
  *
  * @author THANG
  */
-public final class CSPublicationSAXEventHandler extends DefaultHandler{
+public final class CSPublicationSAXEventHandler extends DefaultHandler {
        
     private String recordTag;  
     private String value;
     private int count=0;
     private Paper paper;
-    private ArrayList<Author> authors = null;
+    private PaperBO paperBO ;
+    private Journal journal;
+    private JournalBO journalBO;
+    private AuthorBO authorBO;
+    private Author author;
+    private Publisher publisher;
+    private PublisherBO publisherBO;
+    private Set<Author> authors = null;
     private FileWriter fstream;
     private BufferedWriter out;
     
     public CSPublicationSAXEventHandler() throws IOException{          
-        InputStream in = getClass().getResourceAsStream("/uit/tkorg/cspublicationtool/database/DB_SQLScript_Creation_1112011.sql");
-        Reader fr = new InputStreamReader(in, "utf-8");
-        StringBuilder buffer = new StringBuilder();
-        int ch;
-        while ((ch = in.read()) > -1) {
-                buffer.append((char)ch);
-        }
-        in.close();
-        
-        fstream = new FileWriter("out.sql",true);
-        out = new BufferedWriter(fstream);
-        out.write(buffer.toString());        
-        out.write("\n");
-        out.write(this.generateImportAuthorSQLProcedure());
-        out.write("\n");
-        out.write(this.generateImportConferenceSQLProcedure());
-        out.write("\n");
-        out.write(this.generateImportJournalSQLProcedure());
-        out.write("\n");
-        out.write(this.generateImportMagazineSQLProcedure());
-        out.write("\n");
-        out.write(this.generateImportPaperTypeSQLProcedure());
-        out.write("\n");
-        out.write(this.generateImportPublisherSQLProcedure());
-        out.write("\n");
-        out.write(this.generateImportPaperSQLProcedure());
-        out.write("\n");
-        out.write(this.generateImportAuthorPaperSQLProcedure());
-        out.write("\n");
-        fr = null;
-        buffer = null;
-        in = null;
+//        InputStream in = getClass().getResourceAsStream("/uit/tkorg/cspublicationtool/database/DB_SQLScript_Creation_1112011.sql");
+//        Reader fr = new InputStreamReader(in, "utf-8");
+//        StringBuilder buffer = new StringBuilder();
+//        int ch;
+//        while ((ch = in.read()) > -1) {
+//                buffer.append((char)ch);
+//        }
+//        in.close();
+//        
+//        fstream = new FileWriter("out.sql",true);
+//        out = new BufferedWriter(fstream);
+//        out.write(buffer.toString());        
+//        out.write("\n");
+//        out.write(this.generateImportAuthorSQLProcedure());
+//        out.write("\n");
+//        out.write(this.generateImportConferenceSQLProcedure());
+//        out.write("\n");
+//        out.write(this.generateImportJournalSQLProcedure());
+//        out.write("\n");
+//        out.write(this.generateImportMagazineSQLProcedure());
+//        out.write("\n");
+//        out.write(this.generateImportPaperTypeSQLProcedure());
+//        out.write("\n");
+//        out.write(this.generateImportPublisherSQLProcedure());
+//        out.write("\n");
+//        out.write(this.generateImportPaperSQLProcedure());
+//        out.write("\n");
+//        out.write(this.generateImportAuthorPaperSQLProcedure());
+//        out.write("\n");
+//        fr = null;
+//        buffer = null;
+//        in = null;
     }
 
     @Override
@@ -70,140 +77,192 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler{
     
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        super.endElement(uri, localName, qName);
-        if (qName.equals(AUTHOR) || qName.equals(EDITOR)) {
-            Author author = new Author();
-            author.setName(value);
-            authors.add(author);
-            return;
-        }        
-        if(qName.equals(TITLE)){
-            this.paper.setTitle(value);
-            return;
-        }
-        
-        if(qName.equals(BOOKTITLE)){
-            this.paper.setBooktitle(value);
-            return;
-        }
-        
-        if(qName.equals(PAGES)){
-            this.paper.setPapges(value);
-            return;
-        }    
-        
-        if(qName.equals(YEAR)){
-            this.paper.setYear(value);
-            return;
-        }
-        
-        if(qName.equals(ADDRESS)){
-            this.paper.setAddress(value);
-            return;
-        }
-        
-        if(qName.equals(JOURNAL)){
-            this.paper.setJournal(value);
-            return;
-        }
-        
-        if(qName.equals(VOLUME)){
-            this.paper.setVolume(value);
-            return;
-        }
-        
-        if(qName.equals(NUMBER)){
-            this.paper.setNumber(value);
-            return;
-        }
-        
-        if(qName.equals(MONTH)){
-            this.paper.setMonth(value);
-            return;
-        }
-        
-        if(qName.equals(URL)){
-            this.paper.setUrl(value);
-            return;
-        }
-        
-        if(qName.equals(EE)){
-            this.paper.setEe(value);
-            return;
-        }
-        
-        if(qName.equals(CDROM)){
-            this.paper.setCdrom(value);
-            return;
-        }
-        
-        if(qName.equals(CITE)){
-            this.paper.setCite(value);
-            return;
-        }
-        
-        if(qName.equals(PUBLISHER)){
-            this.paper.setPublisher(value);
-            return;
-        }
-        
-        if(qName.equals(NOTE)){
-            this.paper.setNote(value);
-            return;
-        }
-        
-        if(qName.equals(CROSSREF)){
-            this.paper.setCrossref(value);
-            return;
-        }
-        
-        if(qName.equals(ISBN)){
-            this.paper.setIsbn(value);
-            return;
-        }
-        
-        if(qName.equals(SERIES)){
-            this.paper.setSeries(value);
-            return;
-        }
-        
-        if(qName.equals(SCHOOL)){
-            this.paper.setSchool(value);
-            return;
-        }
-        
-        if(qName.equals(CHAPTER)){
-            this.paper.setChapter(value);
-            return;
-        }
-        
-        if (qName.equals(recordTag)) {
-            this.paper.setAuthors(this.authors);            
-            try {
-                if(this.authors != null){
-                    out.write(this.paper.generateListAuthorCallStatement());
+        try {
+            super.endElement(uri, localName, qName);
+            if (qName.equals(AUTHOR) || qName.equals(EDITOR)) {
+                
+                 try {
+                    authorBO = new AuthorBO(); 
+                    
+                    author =authorBO.checkExitAuthor(value);
+                    if (author ==null)
+                    {
+                        author = new Author();
+                        author.setAuthorName(value);  
+                        authorBO.addNew(author);
+                    }
+                     authors.add(author);
+                return;
+                } catch (Exception ex) {
+                    Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                if(this.paper.getJournal() != null){
-                    out.write(this.paper.generateJournalCallStatement());
-                    out.write("\n");
-                }
-                if(this.paper.getPublisher() != null){
-                    out.write(this.paper.generatePublisherCallStatement());
-                    out.write("\n");
-                }                
-                out.write(this.paper.generatePaperTypeCallStatement());
-                out.write("\n");
-                out.write(this.paper.generatePaperCallStatement());
-                out.write("\n");
-                if(this.paper.getAuthors() != null){
-                    out.write(this.paper.generateAuthorPaperCallStatement()); 
-                }                               
-            } catch (IOException ex) {
-                Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
+
+               
+            }        
+            if(qName.equals(TITLE)){
+                this.paper.setTitle(value);
+                return;
             }
-            this.authors = null;            
-            this.paper = null;            
-        }       
+            
+            if(qName.equals(BOOKTITLE)){
+                this.paper.setTitle(value);
+                return;
+            }
+            
+            if(qName.equals(PAGES)){
+                this.paper.setPages(value);
+                return;
+            }    
+            
+            if(qName.equals(YEAR)){
+                this.paper.setYear(Integer.parseInt(value));
+                return;
+            }
+            
+    //        if(qName.equals(ADDRESS)){
+    //            this.paper.set(value);
+    //            return;
+    //        }
+            
+            // Import Journal
+            
+            if(qName.equals(JOURNAL)){
+                try {
+                    journalBO = new JournalBO(); 
+                    
+                    journal =journalBO.checkExitJournal(value);
+                    if (journal ==null)
+                    {
+                        journal = new Journal();
+                        journal.setJournalName(value);  
+                        journalBO.addNew(journal);
+                    }
+                    
+                    this.paper.setJournal(journal);
+                    return;
+                } catch (Exception ex) {
+                    Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            if(qName.equals(VOLUME)){
+                this.paper.setVolume(value);
+                return;
+            }
+            
+    //        if(qName.equals(NUMBER)){
+    //            this.paper.setNumber(value);
+    //            return;
+    //        }
+            
+    //        if(qName.equals(MONTH)){
+    //            this.paper.setMonth(value);
+    //            return;
+    //        }
+            
+            if(qName.equals(URL)){
+                this.paper.setUrl(value);
+                return;
+            }
+            
+    //        if(qName.equals(EE)){
+    //            this.paper.setEe(value);
+    //            return;
+    //        }
+            
+    //        if(qName.equals(CDROM)){
+    //            this.paper.setCdrom(value);
+    //            return;
+    //        }
+            
+    //        if(qName.equals(CITE)){
+    //            this.paper.setCite(value);
+    //            return;
+    //        }
+            
+            if(qName.equals(PUBLISHER)){
+                 try {
+                    publisherBO = new PublisherBO();
+                    
+                    publisher =publisherBO.checkExitPublisher(value);
+                    if (publisher ==null)
+                    {
+                        publisher = new Publisher();
+                        publisher.setNamePublisher(value); 
+                        publisherBO.addNew(publisher);
+                    }
+                    
+                    this.paper.setPublisher(publisher);
+                    return;
+                } catch (Exception ex) {
+                    Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+    //        if(qName.equals(NOTE)){
+    //            this.paper.setNote(value);
+    //            return;
+    //        }
+            
+    //        if(qName.equals(CROSSREF)){
+    //            this.paper.setCrossref(value);
+    //            return;
+    //        }
+            
+            if(qName.equals(ISBN)){
+                this.paper.setIsbn(value);
+                return;
+            }
+            
+    //        if(qName.equals(SERIES)){
+    //            this.paper.setSeries(value);
+    //            return;
+    //        }
+            
+    //        if(qName.equals(SCHOOL)){
+    //            this.paper.setSchool(value);
+    //            return;
+    //        }
+            
+    //        if(qName.equals(CHAPTER)){
+    //            this.paper.setChapter(value);
+    //            return;
+    //        }
+            
+            if (qName.equals(recordTag)) {
+                paperBO = new PaperBO();
+                this.paper.setAuthors(authors); 
+                paperBO.addNew(paper);
+//                this.paper.setAuthors(this.authors);            
+//                try {
+//                    if(this.authors != null){
+//                        out.write(this.paper.generateListAuthorCallStatement());
+//                    }
+//                    if(this.paper.getJournal() != null){
+//                        out.write(this.paper.generateJournalCallStatement());
+//                        out.write("\n");
+//                    }
+//                    if(this.paper.getPublisher() != null){
+//                        out.write(this.paper.generatePublisherCallStatement());
+//                        out.write("\n");
+//                    }                
+//                    out.write(this.paper.generatePaperTypeCallStatement());
+//                    out.write("\n");
+//                    out.write(this.paper.generatePaperCallStatement());
+//                    out.write("\n");
+//                    if(this.paper.getAuthors() != null){
+//                        out.write(this.paper.generateAuthorPaperCallStatement()); 
+//                    }                               
+//                } catch (IOException ex) {
+//                    Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                this.authors = null;            
+//                this.paper = null;            
+            }   
+
+        } catch (Exception ex) {
+            Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
    
     @Override
@@ -212,10 +271,10 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler{
         if ((attributes.getLength()>0) && (attributes.getValue("key")!=null)) {               
             recordTag = qName;
             this.paper = new Paper();            
-            this.authors = new ArrayList<Author>();       
-            this.paper.setKey(attributes.getValue("key"));
-            this.paper.setMdate(attributes.getValue("mdate"));
-            this.paper.setPaperType(qName);
+            this.authors = new HashSet <Author>();       
+//            this.paper.setKey(attributes.getValue("key"));
+//            this.paper.setMdate(attributes.getValue("mdate"));
+//            this.paper.setPaperType(qName);
             return;
         }
     } 
