@@ -52,6 +52,13 @@ public class HibernateUtil {
      */
     protected void commitAndClose() {
         if (session != null) {
+//            for(int i=0;i<1000;i++) {
+//                if ( i % 50 == 0 ) { //50, same as the JDBC batch size
+//        //flush a batch of inserts and release memory:
+//                        session.flush();
+//                        session.clear();
+//                }               
+//            }
             session.getTransaction().commit();
             if (session.isOpen()) {
                 session.close();
@@ -74,6 +81,7 @@ public class HibernateUtil {
                 }
             }
             session = sessionFactory.getCurrentSession();
+          //  session.setFlushMode(FlushMode.COMMIT);
         }
 
         return session;
