@@ -34,7 +34,9 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     private FileWriter fstream;
     private BufferedWriter out;
     
-    public CSPublicationSAXEventHandler() throws IOException{          
+    public CSPublicationSAXEventHandler() throws IOException, Exception{          
+        super();
+        
 //        InputStream in = getClass().getResourceAsStream("/uit/tkorg/cspublicationtool/database/DB_SQLScript_Creation_1112011.sql");
 //        Reader fr = new InputStreamReader(in, "utf-8");
 //        StringBuilder buffer = new StringBuilder();
@@ -69,6 +71,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
 //        in = null;
     }
 
+
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         super.characters(ch, start, length);
@@ -79,12 +82,11 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName) throws SAXException {
         try {
             super.endElement(uri, localName, qName);
-            if (qName.equals(AUTHOR) || qName.equals(EDITOR)) {
-                
+            if (qName.equals(AUTHOR) || qName.equals(EDITOR)) {                
                  try {
-                    authorBO = new AuthorBO(); 
-                    
-                    author =authorBO.checkExitAuthor(value);
+                   //authorBO = new AuthorBO();
+                     String temp = value.replaceAll("'"," ");
+                    author = this.authorBO.checkExitAuthor(temp);
                     if (author ==null)
                     {
                         author = new Author();
@@ -92,6 +94,8 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                         authorBO.addNew(author);
                     }
                      authors.add(author);
+                     author=null;
+                     //authorBO=null;
                 return;
                 } catch (Exception ex) {
                     Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,9 +132,9 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
             
             if(qName.equals(JOURNAL)){
                 try {
-                    journalBO = new JournalBO(); 
                     
-                    journal =journalBO.checkExitJournal(value);
+                    
+                    journal = this.journalBO.checkExitJournal(value);
                     if (journal ==null)
                     {
                         journal = new Journal();
@@ -139,6 +143,8 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                     }
                     
                     this.paper.setJournal(journal);
+                    journal =null;
+                    //journalBO=null;
                     return;
                 } catch (Exception ex) {
                     Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -182,8 +188,6 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
             
             if(qName.equals(PUBLISHER)){
                  try {
-                    publisherBO = new PublisherBO();
-                    
                     publisher =publisherBO.checkExitPublisher(value);
                     if (publisher ==null)
                     {
@@ -193,6 +197,8 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                     }
                     
                     this.paper.setPublisher(publisher);
+                    publisher=null;
+                    //paperBO =null;
                     return;
                 } catch (Exception ex) {
                     Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -230,9 +236,9 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     //        }
             
             if (qName.equals(recordTag)) {
-                paperBO = new PaperBO();
+                
                 this.paper.setAuthors(authors); 
-                paperBO.addNew(paper);
+                this.paperBO.addNew(paper);
 //                this.paper.setAuthors(this.authors);            
 //                try {
 //                    if(this.authors != null){
@@ -256,10 +262,23 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
 //                } catch (IOException ex) {
 //                    Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
 //                }
-//                this.authors = null;            
-//                this.paper = null;            
+                this.authors = null;            
+                this.paper = null;            
             }   
 
+        } catch (Exception ex) {
+            Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void startDocument() throws SAXException {
+        super.startDocument();
+        try {
+            this.authorBO = new AuthorBO();
+            this.journalBO = new JournalBO(); 
+            this.publisherBO = new PublisherBO();
+            this.paperBO = new PaperBO();
         } catch (Exception ex) {
             Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
