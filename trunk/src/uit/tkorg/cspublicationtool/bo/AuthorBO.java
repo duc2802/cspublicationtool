@@ -29,8 +29,7 @@ public class AuthorBO extends ManagerBase<Author> {
             if(list.isEmpty())
                 return null;
             else
-                return list.get(0);
-                     
+                return list.get(0);         
         } catch (Exception ex) {
             Logger.getLogger(AuthorBO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
