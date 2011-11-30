@@ -15,8 +15,15 @@ import uit.tkorg.cspublicationtool.entities.*;
  * @author tiendv
  */
 public class PublisherBO extends ManagerBase<Publisher> {
-
+    
+    private static PublisherBO publisherBO = null;
     public PublisherBO() throws Exception {
+    }
+    public static PublisherBO getPublisherBO() throws Exception{
+         if (publisherBO == null ){
+              publisherBO = new PublisherBO();
+          }
+         return publisherBO;
     }
     
     public Publisher checkExitPublisher(String namePublisher)

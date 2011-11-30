@@ -14,27 +14,24 @@ import java.util.logging.Logger;
  *
  * @author tiendv
  */
-public class AuthorBO extends ManagerBase<Author> {
+public class PaperTypeBO extends ManagerBase<PaperType> {
+    private static PaperTypeBO paperTypeBO = null;
     
-   private static AuthorBO authorBO = null;
-   
-   public AuthorBO() throws Exception {
+    public PaperTypeBO() throws Exception {
     }
-   
-   public static AuthorBO getAuthorBO() throws Exception{
-         if (authorBO == null ){
-              authorBO = new AuthorBO();
+    
+    public static PaperTypeBO getPaperTypeBO() throws Exception{
+         if (paperTypeBO == null ){
+              paperTypeBO = new PaperTypeBO();
           }
-         return authorBO;
+         return paperTypeBO;
     }
     
-   
-  
-      public Author checkExitAuthor(String nameAuthor)
+      public PaperType checkExitPaperType(String namePaperType)
     {
         
-       String query = "authorName='" + nameAuthor +"'";
-       List<Author> list;
+       String query = "nameType='" + namePaperType +"'";
+       List<PaperType> list;
         try {
             list = getBySQLQuery(query, null, 0);
             if(list.isEmpty())
@@ -42,7 +39,7 @@ public class AuthorBO extends ManagerBase<Author> {
             else
                 return list.get(0);         
         } catch (Exception ex) {
-            Logger.getLogger(AuthorBO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PaperTypeBO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }

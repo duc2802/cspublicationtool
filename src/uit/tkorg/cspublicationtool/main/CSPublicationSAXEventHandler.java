@@ -85,7 +85,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
             if (qName.equals(AUTHOR) || qName.equals(EDITOR)) {                
                  try {
                    //authorBO = new AuthorBO();
-                     String temp = value.replaceAll("'"," ");
+                     String temp = value.replaceAll("'","");
                     author = this.authorBO.checkExitAuthor(temp);
                     if (author ==null)
                     {
@@ -132,8 +132,6 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
             
             if(qName.equals(JOURNAL)){
                 try {
-                    
-                    
                     journal = this.journalBO.checkExitJournal(value);
                     if (journal ==null)
                     {
@@ -275,10 +273,11 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     public void startDocument() throws SAXException {
         super.startDocument();
         try {
-            this.authorBO = new AuthorBO();
-            this.journalBO = new JournalBO(); 
-            this.publisherBO = new PublisherBO();
-            this.paperBO = new PaperBO();
+            this.authorBO = AuthorBO.getAuthorBO();
+            this.journalBO = JournalBO.getJournalBO();
+            this.publisherBO = PublisherBO.getPublisherBO();
+            this.paperBO = PaperBO.getPaperBO();
+            
         } catch (Exception ex) {
             Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -293,7 +292,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
             this.authors = new HashSet <Author>();       
 //            this.paper.setKey(attributes.getValue("key"));
 //            this.paper.setMdate(attributes.getValue("mdate"));
-//            this.paper.setPaperType(qName);
+  //          this.paper.setPaperType(qName);
             return;
         }
     } 

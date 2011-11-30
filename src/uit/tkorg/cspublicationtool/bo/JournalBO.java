@@ -15,10 +15,19 @@ import uit.tkorg.cspublicationtool.entities.*;
  * @author tiendv
  */
 public class JournalBO extends ManagerBase<Journal> {
-
+    
+    private static JournalBO journalBO = null;
+    
     public JournalBO() throws Exception {
     }
-    
+      
+    public static JournalBO getJournalBO() throws Exception{
+         if (journalBO == null ){
+              journalBO = new JournalBO();
+          }
+         return journalBO;
+    }
+  
      public Journal checkExitJournal(String namejournal)
     {
         
