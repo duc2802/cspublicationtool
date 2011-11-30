@@ -13,6 +13,17 @@ import uit.tkorg.cspublicationtool.entities.*;
  */
 public class ConferenceBO extends ManagerBase<Conference> {
 
-    public ConferenceBO() throws Exception {
+   
+    
+     private static ConferenceBO conferenceBO = null;
+     public ConferenceBO() throws Exception {
+     }
+   
+     public static ConferenceBO getConferenceBO() throws Exception{
+         if (conferenceBO == null ){
+              conferenceBO = new ConferenceBO();
+          }
+         return conferenceBO;
     }
+    
 }

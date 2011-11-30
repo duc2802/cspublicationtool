@@ -1,5 +1,5 @@
 package uit.tkorg.cspublicationtool.entities;
-// Generated Nov 28, 2011 11:53:12 PM by Hibernate Tools 3.2.1.GA
+// Generated Nov 30, 2011 8:42:51 AM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;

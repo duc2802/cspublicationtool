@@ -12,7 +12,15 @@ import uit.tkorg.cspublicationtool.entities.Paper;
  * @author tiendv
  */
 public class PaperBO extends ManagerBase <Paper> {
-
+    
+    private static PaperBO japerBO = null;
     public PaperBO() throws Exception {
+    }
+    
+     public static PaperBO getPaperBO() throws Exception{
+         if (japerBO == null ){
+              japerBO = new PaperBO();
+          }
+         return japerBO;
     }
     }
