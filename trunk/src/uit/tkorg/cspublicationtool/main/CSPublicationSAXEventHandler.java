@@ -6,6 +6,11 @@ package uit.tkorg.cspublicationtool.main;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CharsetEncoder;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +24,7 @@ import uit.tkorg.cspublicationtool.entities.*;
  */
 public final class CSPublicationSAXEventHandler extends DefaultHandler {
        
+    private static final String ENCODING = "ISO-8859-1";
     private String recordTag;  
     private String value;
     private int count=0;
@@ -33,7 +39,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     private Set<Author> authors = null;
     private FileWriter fstream;
     private BufferedWriter out;
-    
+    private StringBuffer str;
     public CSPublicationSAXEventHandler() throws IOException, Exception{          
         super();
         
@@ -75,13 +81,16 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         super.characters(ch, start, length);
-        value = (new String(ch, start, length)).trim();
+        String temptString = (new String(ch, start, length));  
+        this.str.append(temptString);
+        //System.out.println(str);
     }
     
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         try {
             super.endElement(uri, localName, qName);
+            this.value = this.str.toString();
             if (qName.equals(AUTHOR) || qName.equals(EDITOR)) {                
                  try {
                    //authorBO = new AuthorBO();
@@ -261,7 +270,8 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
 //                    Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
 //                }
                 this.authors = null;            
-                this.paper = null;            
+                this.paper = null;           
+                this.str = null;
             }   
 
         } catch (Exception ex) {
@@ -273,6 +283,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     public void startDocument() throws SAXException {
         super.startDocument();
         try {
+            str = new StringBuffer();
             this.authorBO = AuthorBO.getAuthorBO();
             this.journalBO = JournalBO.getJournalBO();
             this.publisherBO = PublisherBO.getPublisherBO();
@@ -285,7 +296,8 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
    
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        super.startElement(uri, localName, qName, attributes);            
+        super.startElement(uri, localName, qName, attributes);    
+        this.str = new StringBuffer();
         if ((attributes.getLength()>0) && (attributes.getValue("key")!=null)) {               
             recordTag = qName;
             this.paper = new Paper();            
