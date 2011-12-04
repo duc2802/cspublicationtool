@@ -1,5 +1,5 @@
 package uit.tkorg.cspublicationtool.entities;
-// Generated Nov 30, 2011 8:42:51 AM by Hibernate Tools 3.2.1.GA
+// Generated Dec 4, 2011 10:51:22 AM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -31,6 +31,16 @@ public class Paper  implements java.io.Serializable {
      private String endNote;
      private String dblpKey;
      private String paperFile;
+     private String adress;
+     private String number;
+     private String month;
+     private String ee;
+     private String crossref;
+     private String series;
+     private String school;
+     private String chapter;
+     private String cdrom;
+     private String cite;
      private Set keywords = new HashSet(0);
      private Set comments = new HashSet(0);
      private Set paperPapersForIdPaper = new HashSet(0);
@@ -41,7 +51,7 @@ public class Paper  implements java.io.Serializable {
     public Paper() {
     }
 
-    public Paper(Journal journal, Conference conference, PaperType paperType, Magazine magazine, Publisher publisher, String doi, String isbn, String url, String title, String abstract_, String volume, String pages, Integer year, String viewPublication, String bibTex, String endNote, String dblpKey, String paperFile, Set keywords, Set comments, Set paperPapersForIdPaper, Set paperPapersForIdPaperRef, Set authors, Set paperReviewers) {
+    public Paper(Journal journal, Conference conference, PaperType paperType, Magazine magazine, Publisher publisher, String doi, String isbn, String url, String title, String abstract_, String volume, String pages, Integer year, String viewPublication, String bibTex, String endNote, String dblpKey, String paperFile, String adress, String number, String month, String ee, String crossref, String series, String school, String chapter, String cdrom, String cite, Set keywords, Set comments, Set paperPapersForIdPaper, Set paperPapersForIdPaperRef, Set authors, Set paperReviewers) {
        this.journal = journal;
        this.conference = conference;
        this.paperType = paperType;
@@ -60,6 +70,16 @@ public class Paper  implements java.io.Serializable {
        this.endNote = endNote;
        this.dblpKey = dblpKey;
        this.paperFile = paperFile;
+       this.adress = adress;
+       this.number = number;
+       this.month = month;
+       this.ee = ee;
+       this.crossref = crossref;
+       this.series = series;
+       this.school = school;
+       this.chapter = chapter;
+       this.cdrom = cdrom;
+       this.cite = cite;
        this.keywords = keywords;
        this.comments = comments;
        this.paperPapersForIdPaper = paperPapersForIdPaper;
@@ -207,6 +227,76 @@ public class Paper  implements java.io.Serializable {
     
     public void setPaperFile(String paperFile) {
         this.paperFile = paperFile;
+    }
+    public String getAdress() {
+        return this.adress;
+    }
+    
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+    public String getNumber() {
+        return this.number;
+    }
+    
+    public void setNumber(String number) {
+        this.number = number;
+    }
+    public String getMonth() {
+        return this.month;
+    }
+    
+    public void setMonth(String month) {
+        this.month = month;
+    }
+    public String getEe() {
+        return this.ee;
+    }
+    
+    public void setEe(String ee) {
+        this.ee = ee;
+    }
+    public String getCrossref() {
+        return this.crossref;
+    }
+    
+    public void setCrossref(String crossref) {
+        this.crossref = crossref;
+    }
+    public String getSeries() {
+        return this.series;
+    }
+    
+    public void setSeries(String series) {
+        this.series = series;
+    }
+    public String getSchool() {
+        return this.school;
+    }
+    
+    public void setSchool(String school) {
+        this.school = school;
+    }
+    public String getChapter() {
+        return this.chapter;
+    }
+    
+    public void setChapter(String chapter) {
+        this.chapter = chapter;
+    }
+    public String getCdrom() {
+        return this.cdrom;
+    }
+    
+    public void setCdrom(String cdrom) {
+        this.cdrom = cdrom;
+    }
+    public String getCite() {
+        return this.cite;
+    }
+    
+    public void setCite(String cite) {
+        this.cite = cite;
     }
     public Set getKeywords() {
         return this.keywords;
