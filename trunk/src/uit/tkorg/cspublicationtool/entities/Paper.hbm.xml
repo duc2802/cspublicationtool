@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Nov 30, 2011 8:42:52 AM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Dec 4, 2011 10:51:23 AM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="uit.tkorg.cspublicationtool.entities.Paper" table="paper" catalog="cspublicationcrawler">
         <id name="idPaper" type="java.lang.Integer">
@@ -65,6 +65,36 @@
         <property name="paperFile" type="string">
             <column name="paperFile" length="1000" />
         </property>
+        <property name="adress" type="string">
+            <column name="adress" length="1000" />
+        </property>
+        <property name="number" type="string">
+            <column name="number" length="20" />
+        </property>
+        <property name="month" type="string">
+            <column name="month" length="30" />
+        </property>
+        <property name="ee" type="string">
+            <column name="ee" length="200" />
+        </property>
+        <property name="crossref" type="string">
+            <column name="crossref" length="50" />
+        </property>
+        <property name="series" type="string">
+            <column name="series" length="100" />
+        </property>
+        <property name="school" type="string">
+            <column name="school" length="100" />
+        </property>
+        <property name="chapter" type="string">
+            <column name="chapter" length="50" />
+        </property>
+        <property name="cdrom" type="string">
+            <column name="cdrom" length="100" />
+        </property>
+        <property name="cite" type="string">
+            <column name="cite" length="100" />
+        </property>
         <set name="keywords" inverse="false" table="paper_keyword">
             <key>
                 <column name="idPaper" not-null="true" />
@@ -91,7 +121,7 @@
             </key>
             <one-to-many class="uit.tkorg.cspublicationtool.entities.PaperPaper" />
         </set>
-        <set name="authors" table="author_paper">
+        <set name="authors"  table="author_paper">
             <key>
                 <column name="idPaper" not-null="true" />
             </key>
