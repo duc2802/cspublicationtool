@@ -2,7 +2,8 @@
 SQLyog Enterprise - MySQL GUI v8.12 
 MySQL - 5.0.51b-community-nt-log : Database - cspublicationcrawler
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -182,8 +183,6 @@ DROP TABLE IF EXISTS `author_paper`;
 CREATE TABLE `author_paper` (
   `idAuthor` int(10) unsigned NOT NULL,
   `idPaper` int(10) unsigned NOT NULL,
-  KEY `fk_Author_has_Paper_Paper1` (`idPaper`),
-  KEY `fk_Author_has_Paper_Author1` (`idAuthor`),
   CONSTRAINT `fk_Author_has_Paper_Author1` FOREIGN KEY (`idAuthor`) REFERENCES `author` (`idAuthor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Author_has_Paper_Paper1` FOREIGN KEY (`idPaper`) REFERENCES `paper` (`idPaper`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
