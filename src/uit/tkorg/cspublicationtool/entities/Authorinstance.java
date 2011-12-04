@@ -1,5 +1,5 @@
 package uit.tkorg.cspublicationtool.entities;
-// Generated Dec 4, 2011 10:51:22 AM by Hibernate Tools 3.2.1.GA
+// Generated Dec 4, 2011 5:00:43 PM by Hibernate Tools 3.2.1.GA
 
 
 
