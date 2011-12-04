@@ -230,6 +230,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
             }
             
             if(qName.equals(SERIES)){
+                System.out.println(" Gia tri ===================================="+value);
                 this.paper.setSeries(value);
                 return;
             }
@@ -289,8 +290,9 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
             this.authorBO = AuthorBO.getAuthorBO();
             this.journalBO = JournalBO.getJournalBO();
             this.publisherBO = PublisherBO.getPublisherBO();
-            this.paperBO = PaperBO.getPaperBO();
             this.paperTypeBO = PaperTypeBO.getPaperTypeBO();
+            this.paperBO = PaperBO.getPaperBO();
+         
             
         } catch (Exception ex) {
             Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -320,7 +322,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                 }
             }
             this.paper.setPaperType(papertype);
-
+            papertype=null;
          
             return;
         }
