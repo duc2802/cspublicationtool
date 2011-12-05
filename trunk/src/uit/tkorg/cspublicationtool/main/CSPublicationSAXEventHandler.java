@@ -47,8 +47,6 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     public CSPublicationSAXEventHandler() throws IOException, Exception{          
         super();
     }
-
-
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         super.characters(ch, start, length);
@@ -64,8 +62,8 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                 this.value = this.str.toString();
                 if (qName.equals(AUTHOR) || qName.equals(EDITOR)) {
                      try {
-                       //authorBO = new AuthorBO();
-                         String temp = value.replaceAll("'","");
+                        //authorBO = new AuthorBO();
+                        String temp = value.replaceAll("'","");
                         author = this.authorBO.checkExitAuthor(temp);
                         if (author ==null)
                         {
@@ -260,7 +258,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         super.startElement(uri, localName, qName, attributes);    
         this.str = new StringBuffer();
-        if ((attributes.getLength()>0) && (attributes.getValue("key")!=null)) {               
+        if (!qName.equals(WWW)&&!qName.equals(PROCEEDINGS)&&(attributes.getLength()>0) && (attributes.getValue("key")!=null)) {
             recordTag = qName;
             this.paper = new Paper();            
             this.authors = new HashSet <Author>();       
