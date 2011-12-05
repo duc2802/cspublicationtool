@@ -38,6 +38,8 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     private PaperTypeBO paperTypeBO;
     private PaperType papertype;
     private PublisherBO publisherBO;
+    private Conference conference;
+    private ConferenceBO conferenceBO;
     private Set<Author> authors = null;
     private FileWriter fstream;
     private BufferedWriter out;
@@ -86,7 +88,18 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
 
                 if(qName.equals(BOOKTITLE)){
                     if(recordTag.equals(INPROCEEDINGS)){
-                        //Tien sua cho này giong lam voi Journal ....
+                        String temp = value.replaceAll("'","");
+                        conference = conferenceBO.checkExitConference(temp);
+                        if(conference ==null)
+                        {
+                            conference = new Conference();
+                            conference.setConferenceName(value);
+                            conferenceBO.addNew(conference);
+                            this.paper.setConference(conference);
+                            conference=null;
+                            return;
+                        }
+                        
                     }else {
                         this.paper.setTitle(value);
                         return;
@@ -199,7 +212,6 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                 }
 
                 if(qName.equals(SERIES)){
-                    System.out.println(" Gia tri ===================================="+value);
                     this.paper.setSeries(value);
                     return;
                 }
@@ -234,6 +246,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
         try {
             str = new StringBuffer();
             this.authorBO = AuthorBO.getAuthorBO();
+            this.conferenceBO = ConferenceBO.getConferenceBO();
             this.journalBO = JournalBO.getJournalBO();
             this.publisherBO = PublisherBO.getPublisherBO();
             this.paperTypeBO = PaperTypeBO.getPaperTypeBO();
