@@ -173,7 +173,7 @@ CREATE TABLE `author` (
   KEY `fk_Author_Org` (`idOrg`),
   KEY `index_Author_url` (`url`(255)),
   CONSTRAINT `fk_Author_Org` FOREIGN KEY (`idOrg`) REFERENCES `org` (`idOrg`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=82528 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `author_paper` */
 
@@ -272,7 +272,7 @@ CREATE TABLE `journal` (
   `url` varchar(1000) default NULL,
   PRIMARY KEY  (`idJournal`),
   KEY `index_Journal_url` (`url`(255))
-) ENGINE=InnoDB AUTO_INCREMENT=290 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `keyword` */
 
@@ -368,7 +368,7 @@ CREATE TABLE `paper` (
   CONSTRAINT `fk_Paper_Magazine1` FOREIGN KEY (`idMagazine`) REFERENCES `magazine` (`idMagazine`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Paper_PaperType1` FOREIGN KEY (`idPaperType`) REFERENCES `paper_type` (`idPaperType`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Paper_Publisher1` FOREIGN KEY (`idPublisher`) REFERENCES `publisher` (`idPublisher`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=112453 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `paper_keyword` */
 
@@ -423,7 +423,7 @@ CREATE TABLE `paper_type` (
   `idPaperType` int(10) unsigned NOT NULL auto_increment,
   `nameType` varchar(1000) default NULL,
   PRIMARY KEY  (`idPaperType`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `pcmember` */
 
@@ -447,7 +447,7 @@ CREATE TABLE `publisher` (
   `idPublisher` int(10) unsigned NOT NULL auto_increment,
   `namePublisher` varchar(1000) default NULL,
   PRIMARY KEY  (`idPublisher`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `reviewer` */
 
