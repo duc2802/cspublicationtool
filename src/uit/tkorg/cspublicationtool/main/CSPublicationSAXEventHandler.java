@@ -225,12 +225,18 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                 }
 
                 if (qName.equals(recordTag)) {
-
                     this.paper.setAuthors(authors);
                     this.paperBO.addNew(paper);
+                    if(this.authors != null){
                     this.authors = null;
-                    this.paper = null;
-                    this.str = null;
+                    }
+                    if(this.paper != null){
+                        this.paper = null;
+                    }
+                    if(this.str != null){
+                        this.str = null;
+                    }
+                    return;
                 }
             }
         } catch (Exception ex) {
