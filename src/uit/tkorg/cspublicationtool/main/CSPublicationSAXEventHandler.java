@@ -228,7 +228,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                     this.paper.setAuthors(authors);
                     this.paperBO.addNew(paper);
                     if(this.authors != null){
-                    this.authors = null;
+                        this.authors = null;
                     }
                     if(this.paper != null){
                         this.paper = null;
@@ -244,6 +244,11 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
         }
     }
 
+    @Override
+    public void endDocument() throws SAXException {
+        super.endDocument();
+    }
+    
     @Override
     public void startDocument() throws SAXException {
         super.startDocument();
