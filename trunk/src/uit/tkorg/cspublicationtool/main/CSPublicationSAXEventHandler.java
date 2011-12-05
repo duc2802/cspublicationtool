@@ -264,20 +264,23 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
             this.authors = new HashSet <Author>();       
             this.paper.setDblpKey(attributes.getValue("key"));
             //this.paper.setMdate(attributes.getValue("mdate"));
-            papertype = this.paperTypeBO.checkExitPaperType(qName);
-            if (papertype ==null)
+            if(!recordTag.equals(WWW)&&!recordTag.equals(PROCEEDINGS))
             {
-                try {
-                    papertype = new PaperType();
-                    papertype.setNameType(qName);
-                    paperTypeBO.addNew(papertype);
-                } catch (Exception ex) {
-                    Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
+                papertype = this.paperTypeBO.checkExitPaperType(qName);
+                if (papertype ==null)
+                {
+                    try {
+                        papertype = new PaperType();
+                        papertype.setNameType(qName);
+                        paperTypeBO.addNew(papertype);
+                    } catch (Exception ex) {
+                        Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
+                this.paper.setPaperType(papertype);
+                papertype=null;
             }
-            this.paper.setPaperType(papertype);
-            papertype=null;
-         
+
             return;
         }
     } 
