@@ -59,7 +59,9 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
         try {
             if(!recordTag.equals(WWW)&&!recordTag.equals(PROCEEDINGS)){
                 super.endElement(uri, localName, qName);
-                this.value = this.str.toString();
+                if(this.value != null){
+                    this.value = this.str.toString();
+                }
                 if (qName.equals(AUTHOR) || qName.equals(EDITOR)) {
                      try {
                         //authorBO = new AuthorBO();
