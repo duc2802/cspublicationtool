@@ -34,11 +34,8 @@ public class CSPublicationParser {
             parserFactory.setFeature("http://xml.org/sax/features/namespace-prefixes",true); 
 	    SAXParser parser = parserFactory.newSAXParser();
 	    CSPublicationSAXEventHandler handler = new CSPublicationSAXEventHandler();  
-            XMLReader xmlReader = parser.getXMLReader();
-            xmlReader.setContentHandler(handler);
-            xmlReader.parse(is);
-            //parser.getXMLReader().setFeature("http://xml.org/sax/features/validation", true);            
-            //parser.parse(is, handler);     
+            parser.getXMLReader().setFeature("http://xml.org/sax/features/validation", true);            
+            parser.parse(is, handler);     
             long endTime   = System.currentTimeMillis();
             long totalTime = endTime - startTime;
             
