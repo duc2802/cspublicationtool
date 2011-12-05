@@ -9,11 +9,11 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.Date;
+
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
+
 
 /**
  *
@@ -34,13 +34,11 @@ public class CSPublicationParser {
             parserFactory.setFeature("http://xml.org/sax/features/namespace-prefixes",true); 
 	    SAXParser parser = parserFactory.newSAXParser();
 	    CSPublicationSAXEventHandler handler = new CSPublicationSAXEventHandler();  
-            parser.getXMLReader().setFeature("http://xml.org/sax/features/validation", true);            
+            parser.getXMLReader().setFeature("http://xml.org/sax/features/validation", true);  
             parser.parse(is, handler);     
             long endTime   = System.currentTimeMillis();
-            long totalTime = endTime - startTime;
-            
-            System.out.println("Time run programe"+endTime);
-            
+            long totalTime = endTime - startTime;            
+            System.out.println("Time run programe"+endTime);            
         } catch (Exception e) {
             System.out.print(e.getMessage());
         } 
