@@ -1,16 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package uit.tkorg.cspublicationtool.main;
 
 import java.io.*;
-import java.net.URL;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
-import java.nio.charset.CharsetEncoder;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,14 +10,12 @@ import uit.tkorg.cspublicationtool.bo.*;
 import uit.tkorg.cspublicationtool.entities.*;
 /**
  *
- * @author THANG
+ * @author Duc Huynh
  */
 public final class CSPublicationSAXEventHandler extends DefaultHandler {
-       
-    private static final String ENCODING = "ISO-8859-1";
+      
     private String recordTag;  
     private String value;
-    private int count=0;
     private Paper paper;
     private PaperBO paperBO ;
     private Journal journal;
@@ -40,10 +28,9 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     private PublisherBO publisherBO;
     private Conference conference;
     private ConferenceBO conferenceBO;
-    private Set<Author> authors = null;
-    private FileWriter fstream;
-    private BufferedWriter out;
+    private Set<Author> authors = null;        
     private StringBuffer str;
+
     public CSPublicationSAXEventHandler() throws IOException, Exception{          
         super();
     }
@@ -57,14 +44,13 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         try {
-            if(!recordTag.equals(PROCEEDINGS)){
+            if(!recordTag.equals(WWW)&&!recordTag.equals(PROCEEDINGS)){
                 super.endElement(uri, localName, qName);
                 if(this.str != null){
                     this.value = this.str.toString();
                 }
                 if (qName.equals(AUTHOR) || qName.equals(EDITOR)) {
-                     try {
-                        //authorBO = new AuthorBO();
+                     try {                        
                         String temp = value.replaceAll("'","");
                         author = this.authorBO.checkExitAuthor(temp);
                         if (author ==null)
@@ -75,7 +61,6 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                         }
                          authors.add(author);
                          author=null;
-                         //authorBO=null;
                     return;
                     } catch (Exception ex) {
                         Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -90,7 +75,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                     if(recordTag.equals(INPROCEEDINGS)){
                         String temp = value.replaceAll("'","");
                         conference = conferenceBO.checkExitConference(temp);
-                        if(conference ==null)
+                        if(conference == null)
                         {
                             conference = new Conference();
                             conference.setConferenceName(value);
@@ -99,7 +84,6 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                             conference=null;
                             return;
                         }
-                        
                     }else {
                         this.paper.setTitle(value);
                         return;
@@ -131,8 +115,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                         }
 
                         this.paper.setJournal(journal);
-                        journal =null;
-                        //journalBO=null;
+                        journal =null;                        
                         return;
                     } catch (Exception ex) {
                         Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -185,18 +168,12 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                         }
 
                         this.paper.setPublisher(publisher);
-                        publisher=null;
-                        //paperBO =null;
+                        publisher=null;                        
                         return;
                     } catch (Exception ex) {
                         Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-
-    //            if(qName.equals(NOTE)){
-    //                this.paper.set(value);
-    //                return;
-    //            }
 
                 if(qName.equals(CROSSREF)){
                     this.paper.setCrossref(value);
@@ -272,9 +249,8 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
             recordTag = qName;
             this.paper = new Paper();            
             this.authors = new HashSet <Author>();       
-            this.paper.setDblpKey(attributes.getValue("key"));
-            //this.paper.setMdate(attributes.getValue("mdate"));
-            if(!recordTag.equals(PROCEEDINGS))
+            this.paper.setDblpKey(attributes.getValue("key"));            
+            if(!recordTag.equals(WWW)&&!recordTag.equals(PROCEEDINGS))
             {
                 papertype = this.paperTypeBO.checkExitPaperType(qName);
                 if (papertype ==null)
@@ -290,7 +266,6 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                 this.paper.setPaperType(papertype);
                 papertype=null;
             }
-
             return;
         }
     } 
