@@ -57,9 +57,9 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         try {
-            if(!recordTag.equals(WWW)&&!recordTag.equals(PROCEEDINGS)){
+            if(!recordTag.equals(PROCEEDINGS)){
                 super.endElement(uri, localName, qName);
-                if(this.value != null){
+                if(this.str != null){
                     this.value = this.str.toString();
                 }
                 if (qName.equals(AUTHOR) || qName.equals(EDITOR)) {
@@ -120,9 +120,6 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                     this.paper.setAdress(value);
                     return;
                 }
-
-                // Import Journal
-
                 if(qName.equals(JOURNAL)){
                     try {
                         journal = this.journalBO.checkExitJournal(value);
@@ -277,7 +274,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
             this.authors = new HashSet <Author>();       
             this.paper.setDblpKey(attributes.getValue("key"));
             //this.paper.setMdate(attributes.getValue("mdate"));
-            if(!recordTag.equals(WWW)&&!recordTag.equals(PROCEEDINGS))
+            if(!recordTag.equals(PROCEEDINGS))
             {
                 papertype = this.paperTypeBO.checkExitPaperType(qName);
                 if (papertype ==null)
