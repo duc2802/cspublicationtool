@@ -40,7 +40,7 @@ public abstract class ManagerBase<T> extends HibernateUtil {
      */
     public void addNew(T entity) throws Exception {
         beginTransaction();
-        getCurrentSession().save(entity);
+        getCurrentSession().insert(entity);
         commitAndClose();
     }
 
@@ -51,7 +51,7 @@ public abstract class ManagerBase<T> extends HibernateUtil {
      */
     public void update(T entity) throws Exception {
         beginTransaction();
-        getCurrentSession().saveOrUpdate(entity);
+        getCurrentSession().update(entity);
         commitAndClose();
     }
 
@@ -95,9 +95,9 @@ public abstract class ManagerBase<T> extends HibernateUtil {
         beginTransaction();
 
         if (locked) {
-            entity = (T) getCurrentSession().load(getPersistentClass(), id, lockMode.UPGRADE);
+            entity = (T) getCurrentSession().get(getPersistentClass(), id, lockMode.UPGRADE);
         } else {
-            entity = (T) getCurrentSession().load(getPersistentClass(), id);
+            entity = (T) getCurrentSession().get(getPersistentClass(), id);
         }
 
         commitAndClose();
