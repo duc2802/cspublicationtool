@@ -4,6 +4,8 @@
  */
 package uit.tkorg.cspublicationtool.main;
 
+import java.io.FileNotFoundException;
+
 /**
  *
  * @author Administrator
@@ -13,8 +15,8 @@ public class CSPublicationTool {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {      
-      CSPublicationParser p = new CSPublicationParser("D://Working//Project//PublicationTools//Data//dblp.xml"); 
+    public static void main(String[] args) throws FileNotFoundException {      
+      CSPublicationParser p = new CSPublicationParser("C://Data//dblp.xml"); 
 
     }
 }

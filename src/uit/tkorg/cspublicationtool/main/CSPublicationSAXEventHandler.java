@@ -106,8 +106,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                 }
                 if(qName.equals(JOURNAL)){
                     try {
-                        String temp = value.replaceAll("'","");
-                        journal = this.journalBO.checkExitJournal(temp);
+                        journal = this.journalBO.checkExitJournal(value);
                         if (journal ==null)
                         {
                             journal = new Journal();
@@ -160,8 +159,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
 
                 if(qName.equals(PUBLISHER)){
                      try {
-                        String temp = value.replaceAll("'","");
-                        publisher =publisherBO.checkExitPublisher(temp);
+                        publisher =publisherBO.checkExitPublisher(value);
                         if (publisher ==null)
                         {
                             publisher = new Publisher();

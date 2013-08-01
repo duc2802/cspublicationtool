@@ -30,8 +30,8 @@ public class JournalBO extends ManagerBase<Journal> {
   
      public Journal checkExitJournal(String namejournal)
     {
-        
-       String query = "journalName='" + namejournal +"'";
+         
+       String query = "journalName='" + namejournal.replaceAll("\\'", "") +"'";
        List<Journal> list;
         try {
             list = getBySQLQuery(query, null, 0);

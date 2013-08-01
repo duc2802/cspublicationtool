@@ -33,7 +33,7 @@ public class ConferenceBO extends ManagerBase<Conference> {
       public Conference checkExitConference(String nameConference)
     {
         
-       String query = "conferenceName='" + nameConference +"'";
+       String query = "conferenceName='" + nameConference.replaceAll("\\'", "") +"'";
        List<Conference> list;
         try {
             list = getBySQLQuery(query, null, 0);

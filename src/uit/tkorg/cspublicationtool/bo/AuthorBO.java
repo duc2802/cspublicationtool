@@ -33,7 +33,7 @@ public class AuthorBO extends ManagerBase<Author> {
       public Author checkExitAuthor(String nameAuthor)
     {
         
-       String query = "authorName='" + nameAuthor +"'";
+       String query = "authorName='" + nameAuthor.replaceAll("\\'", "") +"'";
        List<Author> list;
         try {
             list = getBySQLQuery(query, null, 0);

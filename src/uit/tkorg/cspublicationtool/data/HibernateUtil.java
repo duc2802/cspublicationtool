@@ -21,10 +21,8 @@ import org.hibernate.criterion.*;
 public class HibernateUtil {
 
     private SessionFactory sessionFactory;
-    //private Session session;
-    private StatelessSession session; 
+    private Session session;
     private String sessionFactoryConfigPath;
-    private Transaction tx;
 
     protected LockMode lockMode;
     protected Order order;
@@ -45,9 +43,7 @@ public class HibernateUtil {
      * Begin a transaction
      */
     protected void beginTransaction() {
-        //session = sessionFactory.getCurrentSession();
-         session = sessionFactory.openStatelessSession();
-      //  Transaction tx = session.beginTransaction();
+        session = sessionFactory.getCurrentSession();
         session.beginTransaction();
     }
 
@@ -55,19 +51,25 @@ public class HibernateUtil {
      * Commit transaction and close session
      */
     protected void commitAndClose() {
-//        if (session != null) {
-//            for(int i=0;i<1000;i++) {
-//                if ( i % 50 == 0 ) { //50, same as the JDBC batch size
-//                                     //flush a batch of inserts and release memory:
-//                        session.flush();
-//                        session.clear();
-//                }               
-//            }
-            session.getTransaction().commit();
-//            if (session.isOpen()) {
-                session.close();
-//            }
-       // }
+    //    try {
+            if (session != null ) {
+                for(int i=0;i<1000;i++) {
+                    if ( i % 200 == 0 ) { //50, same as the JDBC batch size
+                                         //flush a batch of inserts and release memory:
+                            session.flush();
+                            session.clear();
+                    }               
+                }
+               // session.getTransaction().begin();
+                session.getTransaction().commit();
+                if (session.isOpen()) {
+                    session.close();
+                }
+            }
+      //  }catch (RuntimeException e) {
+     //       session.getTransaction().rollback();
+     //       throw e;
+     //   }
     }
 
     /**
@@ -75,7 +77,7 @@ public class HibernateUtil {
      * @return session
      * @throws Exception
      */
-    protected StatelessSession getCurrentSession() throws Exception {
+    protected Session getCurrentSession() throws Exception {
         if (session == null) { // check session null
             if (sessionFactory == null) { // buil Factory Session if it's null
                 if (sessionFactoryConfigPath == null || sessionFactoryConfigPath.equals("")) {
@@ -84,9 +86,8 @@ public class HibernateUtil {
                     sessionFactory = new Configuration().configure(this.sessionFactoryConfigPath).buildSessionFactory();
                 }
             }
-           // session = sessionFactory.getCurrentSession();
-            session = sessionFactory.openStatelessSession();
-          //  session.setFlushMode(FlushMode.COMMIT);
+            session = sessionFactory.getCurrentSession();
+//            session.setFlushMode(FlushMode.COMMIT);
         }
 
         return session;

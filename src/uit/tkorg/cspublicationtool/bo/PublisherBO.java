@@ -29,7 +29,7 @@ public class PublisherBO extends ManagerBase<Publisher> {
     public Publisher checkExitPublisher(String namePublisher)
     {
         
-       String query = "namePublisher='" + namePublisher +"'";
+       String query = "namePublisher='" + namePublisher.replaceAll("\\'", "") +"'";
        List<Publisher> list;
         try {
             list = getBySQLQuery(query, null, 0);

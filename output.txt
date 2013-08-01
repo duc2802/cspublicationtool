@@ -1,0 +1,1 @@
+The parser has encountered more than "64,000" entity expansions in this document; this is the limit imposed by the application.

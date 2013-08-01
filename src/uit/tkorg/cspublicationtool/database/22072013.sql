@@ -1,4 +1,4 @@
-﻿/*
+/*
 SQLyog Enterprise - MySQL GUI v8.12 
 MySQL - 5.0.51b-community-nt-log : Database - cspublicationcrawler
 *********************************************************************
