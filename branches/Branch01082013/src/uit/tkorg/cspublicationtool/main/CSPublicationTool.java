@@ -16,7 +16,7 @@ public class CSPublicationTool {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException {      
-      CSPublicationParser p = new CSPublicationParser("C://Data//dblp.xml"); 
+      CSPublicationParser p = new CSPublicationParser("C://Data//dblp.xml") ; 
 
     }
 }
