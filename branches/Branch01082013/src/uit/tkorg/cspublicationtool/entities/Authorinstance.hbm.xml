@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 4, 2011 5:00:44 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="uit.tkorg.cspublicationtool.entities.Authorinstance" table="authorinstance" catalog="cspublicationcrawler">
+        <id name="autoId" type="java.lang.Integer">
+            <column name="autoID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="author" class="uit.tkorg.cspublicationtool.entities.Author" fetch="select">
+            <column name="idAuthor" not-null="true" />
+        </many-to-one>
+        <property name="instanceName" type="string">
+            <column name="instanceName" length="1000" />
+        </property>
+    </class>
+</hibernate-mapping>

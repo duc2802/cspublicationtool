@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 4, 2011 5:00:44 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="uit.tkorg.cspublicationtool.entities.Journal" table="journal" catalog="cspublicationcrawler">
+        <id name="idJournal" type="java.lang.Integer">
+            <column name="idJournal" />
+            <generator class="identity" />
+        </id>
+        <property name="journalName" type="string">
+            <column name="journalName" length="1000" />
+        </property>
+        <property name="website" type="string">
+            <column name="website" length="1000" />
+        </property>
+        <property name="yearStart" type="java.lang.Integer">
+            <column name="yearStart" />
+        </property>
+        <property name="yearEnd" type="java.lang.Integer">
+            <column name="yearEnd" />
+        </property>
+        <property name="organization" type="string">
+            <column name="organization" length="1000" />
+        </property>
+        <property name="url" type="string">
+            <column name="url" length="1000" />
+        </property>
+        <set name="papers" inverse="true">
+            <key>
+                <column name="idJournal" />
+            </key>
+            <one-to-many class="uit.tkorg.cspublicationtool.entities.Paper" />
+        </set>
+    </class>
+</hibernate-mapping>
