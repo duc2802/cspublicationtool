@@ -4,8 +4,15 @@ import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.SchedulerException;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
 import org.xml.sax.*;
 import org.xml.sax.helpers.*; 
+import uit.tkorg.cspubguru.job.PaperTypeJob;
+import uit.tkorg.cspubguru.scheduler.SchedulerManager;
 import uit.tkorg.cspublicationtool.bo.*;
 import uit.tkorg.cspublicationtool.entities.*;
 /**
@@ -43,6 +50,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
+        /*
         try {
             if(!recordTag.equals(WWW)&&!recordTag.equals(PROCEEDINGS)){
                 super.endElement(uri, localName, qName);
@@ -218,16 +226,19 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
         } catch (Exception ex) {
             Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
+        * */
     }
 
     @Override
     public void endDocument() throws SAXException {
-        super.endDocument();
+        super.endDocument();  
+
     }
     
     @Override
     public void startDocument() throws SAXException {
         super.startDocument();
+        /*
         try {
             str = new StringBuffer();
             this.authorBO = AuthorBO.getAuthorBO();
@@ -239,35 +250,28 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
         } catch (Exception ex) {
             Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
+        * */
     }
    
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        super.startElement(uri, localName, qName, attributes);    
+        super.startElement(uri, localName, qName, attributes);  
         this.str = new StringBuffer();
-        if ((attributes.getLength()>0) && (attributes.getValue("key")!=null)) {
+        System.out.println("Counting " + counter++);
+        /*if ((attributes.getLength()>0) && (attributes.getValue("key")!=null)) {
             recordTag = qName;
-            this.paper = new Paper();            
-            this.authors = new HashSet <Author>();       
-            this.paper.setDblpKey(attributes.getValue("key"));            
             if(!recordTag.equals(WWW)&&!recordTag.equals(PROCEEDINGS))
             {
-                papertype = this.paperTypeBO.checkExitPaperType(qName);
-                if (papertype ==null)
-                {
-                    try {
-                        papertype = new PaperType();
-                        papertype.setNameType(qName);
-                        paperTypeBO.addNew(papertype);
-                    } catch (Exception ex) {
-                        Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                JobDetail paperTypeJob = JobBuilder.newJob(PaperTypeJob.class).build();
+                paperTypeJob.getJobDataMap().put("PaperTypeName",qName);
+                Trigger trigger = TriggerBuilder.newTrigger().startNow().build();
+                try {
+                    SchedulerManager.getInstance().getScheduler().scheduleJob(paperTypeJob, trigger);
+                } catch (SchedulerException ex) {
+                    Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                this.paper.setPaperType(papertype);
-                papertype=null;
             }
-            return;
-        }
+        }*/
     } 
     //article|inproceedings|proceedings|book|incollection|phdthesis|mastersthesis|www
     private static final String ARTICLE = "article";
@@ -302,4 +306,6 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     private static final String SERIES = "series";
     private static final String SCHOOL = "school";
     private static final String CHAPTER = "chapter";
+    
+    public int counter = 0;
 }
