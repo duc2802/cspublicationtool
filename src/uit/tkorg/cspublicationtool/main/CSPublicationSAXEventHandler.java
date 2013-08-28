@@ -50,6 +50,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
+        super.endElement(uri, localName, qName);
         /*
         try {
             if(!recordTag.equals(WWW)&&!recordTag.equals(PROCEEDINGS)){
@@ -257,8 +258,11 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         super.startElement(uri, localName, qName, attributes);  
         this.str = new StringBuffer();
-        System.out.println("Counting " + counter++);
-        /*if ((attributes.getLength()>0) && (attributes.getValue("key")!=null)) {
+        if ((attributes.getLength()>0) && (attributes.getValue("key")!=null)) {
+            counter++;
+            System.out.println("Counting " + counter);
+        }
+            /*
             recordTag = qName;
             if(!recordTag.equals(WWW)&&!recordTag.equals(PROCEEDINGS))
             {
