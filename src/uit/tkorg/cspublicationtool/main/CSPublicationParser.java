@@ -15,6 +15,7 @@ import java.io.Reader;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import org.quartz.Scheduler;
 import org.xml.sax.InputSource;
 
 
@@ -23,7 +24,6 @@ import org.xml.sax.InputSource;
  * @author THANG
  */
 public class CSPublicationParser {
-
     public CSPublicationParser(String uri) throws FileNotFoundException {
          PrintStream out = new PrintStream(new FileOutputStream("output.txt"));
         try {
