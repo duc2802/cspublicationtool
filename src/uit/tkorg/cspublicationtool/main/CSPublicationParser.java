@@ -24,7 +24,7 @@ import org.xml.sax.InputSource;
  * @author THANG
  */
 public class CSPublicationParser {
-    public CSPublicationParser(String uri) throws FileNotFoundException {
+    public CSPublicationParser(String[] listUri) throws FileNotFoundException {
          PrintStream out = new PrintStream(new FileOutputStream("output.txt"));
         try {
            
@@ -36,12 +36,15 @@ public class CSPublicationParser {
 	    SAXParser parser = parserFactory.newSAXParser();
 	    CSPublicationSAXEventHandler handler = new CSPublicationSAXEventHandler();  
             parser.getXMLReader().setFeature("http://xml.org/sax/features/validation", true);  
-            parser.parse(uri, handler);
-            System.setOut(out);
-            long endTime   = System.currentTimeMillis();
-            long totalTime = endTime - startTime;      
-            System.out.println("Time End"+endTime); 
-            System.out.println("Time run programe"+totalTime);
+            for (String uri : listUri)
+            {
+                parser.parse(uri, handler);
+                System.setOut(out);
+                long endTime   = System.currentTimeMillis();
+                long totalTime = endTime - startTime;      
+                System.out.println("Time End"+endTime); 
+                System.out.println("Time run programe"+totalTime);
+            }
         } catch (Exception e) {
             System.setOut(out);
             System.out.print(e.getMessage());
