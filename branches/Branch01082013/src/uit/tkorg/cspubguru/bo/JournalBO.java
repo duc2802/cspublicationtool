@@ -11,39 +11,40 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import uit.tkorg.cspubguru.connection.ConnectionManager;
+import uit.tkorg.cspublicationtool.entities.Journal;
 import uit.tkorg.cspublicationtool.entities.PaperType;
 
 /**
  *
  * @author Dao
  */
-public class PaperTypeBO {
-    private static HashMap<Integer,Integer> setPaperType = new HashMap<>();
+public class JournalBO {
+    private static HashMap<Integer,Integer> journalData = new HashMap<>();
     private static int id = 1;
-    public static void insertPaperType(String paperTypeName) throws SQLException
+    public static void insertJournal(String journalName) throws SQLException
     {
-        Integer hashCode = paperTypeName.hashCode();
-        if (!setPaperType.containsKey(hashCode))
+        Integer hashCode = journalName.hashCode();
+        if (!journalData.containsKey(hashCode))
         {
-            PaperType paperType = new PaperType();
-            paperType.setIdPaperType(id);
-            paperType.setNameType(paperTypeName);
-            setPaperType.put(hashCode, id);
+            Journal journal = new Journal();
+            journal.setIdJournal(id);
+            journal.setJournalName(journalName);
+            journalData.put(hashCode, id);
             id++;
             Connection connection = ConnectionManager.getInstance().getConnection();
             if (connection != null)
             {
-                String sql = "INSERT into paper_type (idPaperType, nameType) VALUES" + "(?,?)"; 
+                String sql = "INSERT into journal (idJournal, journalName,website,yearStart,yearEnd,organization,url) VALUES" + "(?,?,?,?,?,?,?)"; 
                 try
                 {
                     PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                    preparedStatement.setInt(1, paperType.getIdPaperType());
-                    preparedStatement.setString(2, paperType.getNameType());
+                    preparedStatement.setInt(1, journal.getIdJournal());
+                    preparedStatement.setString(2, journal.getJournalName());
                     preparedStatement.executeUpdate();
                 }
                 catch(Exception ex)
                 {
-                    Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(JournalBO.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 finally
                 {
@@ -52,9 +53,9 @@ public class PaperTypeBO {
             }
         }
     }
-    public static Integer findPaperTypeId(String paperTypeName)
+    public static Integer findJournalId(String JournalName)
     {
-        Integer hashCode = paperTypeName.hashCode();
-        return setPaperType.get(hashCode);
+        Integer hashCode = JournalName.hashCode();
+        return journalData.get(hashCode);
     }
 }
