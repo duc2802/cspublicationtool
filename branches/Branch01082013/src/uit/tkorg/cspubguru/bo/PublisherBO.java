@@ -33,7 +33,7 @@ public class PublisherBO {
             Connection connection = ConnectionManager.getInstance().getConnection();
             if (connection != null)
             {
-                String sql = "INSERT into journal (idPublisher, namePublisher) VALUES" + "(?,?)"; 
+                String sql = "INSERT into publisher (idPublisher, namePublisher) VALUES" + "(?,?)"; 
                 try
                 {
                     PreparedStatement preparedStatement = connection.prepareStatement(sql);
