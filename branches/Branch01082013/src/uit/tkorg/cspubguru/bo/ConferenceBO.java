@@ -33,7 +33,7 @@ public class ConferenceBO {
             Connection connection = ConnectionManager.getInstance().getConnection();
             if (connection != null)
             {
-                String sql = "INSERT into conference (idConference, conferenceName,website,organization,organizedLocation,duration,yearStart,yearEnd,url) VALUES" + "(?,?,?,?,?,?,?,?,?)"; 
+                String sql = "INSERT into conference (idConference, conferenceName) VALUES" + "(?,?)"; 
                 try
                 {
                     PreparedStatement preparedStatement = connection.prepareStatement(sql);

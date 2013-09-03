@@ -34,7 +34,7 @@ public class JournalBO {
             Connection connection = ConnectionManager.getInstance().getConnection();
             if (connection != null)
             {
-                String sql = "INSERT into journal (idJournal, journalName,website,yearStart,yearEnd,organization,url) VALUES" + "(?,?,?,?,?,?,?)"; 
+                String sql = "INSERT into journal (idJournal, journalName) VALUES" + "(?,?)"; 
                 try
                 {
                     PreparedStatement preparedStatement = connection.prepareStatement(sql);
