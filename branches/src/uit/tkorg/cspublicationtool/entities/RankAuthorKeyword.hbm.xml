@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 4, 2011 5:00:44 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="uit.tkorg.cspublicationtool.entities.RankAuthorKeyword" table="_rank_author_keyword" catalog="cspublicationcrawler">
+        <composite-id name="id" class="uit.tkorg.cspublicationtool.entities.RankAuthorKeywordId">
+            <key-property name="idAuthor" type="int">
+                <column name="idAuthor" />
+            </key-property>
+            <key-property name="idKeyword" type="int">
+                <column name="idKeyword" />
+            </key-property>
+        </composite-id>
+        <property name="publicationCount" type="java.lang.Integer">
+            <column name="publicationCount" />
+        </property>
+        <property name="citationCount" type="java.lang.Integer">
+            <column name="citationCount" />
+        </property>
+        <property name="rank" type="int">
+            <column name="rank" not-null="true" />
+        </property>
+        <property name="coAuthorCount" type="java.lang.Integer">
+            <column name="coAuthorCount" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 4, 2011 5:00:44 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="uit.tkorg.cspublicationtool.entities.RankOrg" table="_rank_org" catalog="cspublicationcrawler">
+        <id name="idOrg" type="java.lang.Integer">
+            <column name="idOrg" />
+            <generator class="identity" />
+        </id>
+        <property name="publicationCount" type="java.lang.Integer">
+            <column name="publicationCount" />
+        </property>
+        <property name="citationCount" type="java.lang.Integer">
+            <column name="citationCount" />
+        </property>
+        <property name="rank" type="int">
+            <column name="rank" not-null="true" />
+        </property>
+        <property name="authorCount" type="java.lang.Integer">
+            <column name="authorCount" />
+        </property>
+    </class>
+</hibernate-mapping>

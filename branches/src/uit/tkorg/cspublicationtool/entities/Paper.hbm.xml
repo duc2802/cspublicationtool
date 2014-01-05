@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 4, 2011 5:00:44 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="uit.tkorg.cspublicationtool.entities.Paper" table="paper" catalog="cspublicationcrawler">
+        <id name="idPaper" type="java.lang.Integer">
+            <column name="idPaper" />
+            <generator class="identity" />
+        </id>
+        <version name="version" type="java.lang.Integer">
+            <column name="version" />
+        </version>
+        <many-to-one name="journal" class="uit.tkorg.cspublicationtool.entities.Journal" fetch="select">
+            <column name="idJournal" />
+        </many-to-one>
+        <many-to-one name="conference" class="uit.tkorg.cspublicationtool.entities.Conference" fetch="select">
+            <column name="idConference" />
+        </many-to-one>
+        <many-to-one name="paperType" class="uit.tkorg.cspublicationtool.entities.PaperType" fetch="select">
+            <column name="idPaperType" />
+        </many-to-one>
+        <many-to-one name="magazine" class="uit.tkorg.cspublicationtool.entities.Magazine" fetch="select">
+            <column name="idMagazine" />
+        </many-to-one>
+        <many-to-one name="publisher" class="uit.tkorg.cspublicationtool.entities.Publisher" fetch="select">
+            <column name="idPublisher" />
+        </many-to-one>
+        <property name="doi" type="string">
+            <column name="doi" length="100" />
+        </property>
+        <property name="isbn" type="string">
+            <column name="isbn" length="100" />
+        </property>
+        <property name="url" type="string">
+            <column name="url" length="1000" />
+        </property>
+        <property name="title" type="string">
+            <column name="title" length="1000" />
+        </property>
+        <property name="abstract_" type="string">
+            <column name="abstract" length="10000" />
+        </property>
+        <property name="volume" type="string">
+            <column name="volume" length="100" />
+        </property>
+        <property name="pages" type="string">
+            <column name="pages" length="100" />
+        </property>
+        <property name="year" type="java.lang.Integer">
+            <column name="year" />
+        </property>
+        <property name="viewPublication" type="string">
+            <column name="viewPublication" length="65535" />
+        </property>
+        <property name="bibTex" type="string">
+            <column name="bibTex" length="1000" />
+        </property>
+        <property name="endNote" type="string">
+            <column name="endNote" length="1000" />
+        </property>
+        <property name="dblpKey" type="string">
+            <column name="dblpKey" length="1000" />
+        </property>
+        <property name="paperFile" type="string">
+            <column name="paperFile" length="1000" />
+        </property>
+        <property name="adress" type="string">
+            <column name="adress" length="1000" />
+        </property>
+        <property name="number" type="string">
+            <column name="number" length="20" />
+        </property>
+        <property name="month" type="string">
+            <column name="month" length="30" />
+        </property>
+        <property name="ee" type="string">
+            <column name="ee" length="200" />
+        </property>
+        <property name="crossref" type="string">
+            <column name="crossref" length="50" />
+        </property>
+        <property name="series" type="string">
+            <column name="series" length="100" />
+        </property>
+        <property name="school" type="string">
+            <column name="school" length="100" />
+        </property>
+        <property name="chapter" type="string">
+            <column name="chapter" length="50" />
+        </property>
+        <property name="cdrom" type="string">
+            <column name="cdrom" length="100" />
+        </property>
+        <property name="cite" type="string">
+            <column name="cite" length="100" />
+        </property>
+        <set name="keywords" inverse="false" table="paper_keyword">
+            <key>
+                <column name="idPaper" not-null="true" />
+            </key>
+            <many-to-many entity-name="uit.tkorg.cspublicationtool.entities.Keyword">
+                <column name="idKeyword" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="comments" inverse="true">
+            <key>
+                <column name="idPaper" not-null="true" />
+            </key>
+            <one-to-many class="uit.tkorg.cspublicationtool.entities.Comment" />
+        </set>
+        <set name="paperPapersForIdPaper" inverse="true">
+            <key>
+                <column name="idPaper" not-null="true" />
+            </key>
+            <one-to-many class="uit.tkorg.cspublicationtool.entities.PaperPaper" />
+        </set>
+        <set name="paperPapersForIdPaperRef" inverse="true">
+            <key>
+                <column name="idPaperRef" not-null="true" />
+            </key>
+            <one-to-many class="uit.tkorg.cspublicationtool.entities.PaperPaper" />
+        </set>
+        <set name="authors" table="author_paper">
+            <key>
+                <column name="idPaper" not-null="true" />
+            </key>
+            <many-to-many entity-name="uit.tkorg.cspublicationtool.entities.Author">
+                <column name="idAuthor" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="paperReviewers" inverse="true">
+            <key>
+                <column name="idPaper" not-null="true" />
+            </key>
+            <one-to-many class="uit.tkorg.cspublicationtool.entities.PaperReviewer" />
+        </set>
+    </class>
+</hibernate-mapping>

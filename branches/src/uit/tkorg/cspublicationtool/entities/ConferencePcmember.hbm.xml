@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 4, 2011 5:00:44 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="uit.tkorg.cspublicationtool.entities.ConferencePcmember" table="conference_pcmember" catalog="cspublicationcrawler">
+        <composite-id name="id" class="uit.tkorg.cspublicationtool.entities.ConferencePcmemberId">
+            <key-property name="idConference" type="int">
+                <column name="idConference" />
+            </key-property>
+            <key-property name="idPcmember" type="int">
+                <column name="idPCMember" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="pcmember" class="uit.tkorg.cspublicationtool.entities.Pcmember" update="false" insert="false" fetch="select">
+            <column name="idPCMember" not-null="true" />
+        </many-to-one>
+        <many-to-one name="conference" class="uit.tkorg.cspublicationtool.entities.Conference" update="false" insert="false" fetch="select">
+            <column name="idConference" not-null="true" />
+        </many-to-one>
+        <property name="year" type="java.lang.Integer">
+            <column name="year" />
+        </property>
+    </class>
+</hibernate-mapping>
