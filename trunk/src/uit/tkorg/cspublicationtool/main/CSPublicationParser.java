@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import javax.xml.XMLConstants;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -25,6 +26,7 @@ public class CSPublicationParser {
         try {
             long startTime = System.currentTimeMillis();
             SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+            parserFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, false);
             parserFactory.setFeature("http://xml.org/sax/features/namespaces",false);
             parserFactory.setFeature("http://xml.org/sax/features/namespace-prefixes",true); 
 	    SAXParser parser = parserFactory.newSAXParser();
