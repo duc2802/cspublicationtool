@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 import org.xml.sax.*;
 import org.xml.sax.helpers.*; 
 import uit.tkorg.cspublicationtool.bo.*;
+import uit.tkorg.cspublicationtool.datasource.DataSourceManager;
+import uit.tkorg.cspublicationtool.datasource.DataType;
 import uit.tkorg.cspublicationtool.entities.*;
 /**
  *
@@ -30,6 +32,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
     private ConferenceBO conferenceBO;
     private Set<Author> authors = null;        
     private StringBuffer str;
+    private DataSourceManager dataSource = DataSourceManager.INSTANCE;
 
     public CSPublicationSAXEventHandler() throws IOException, Exception{          
         super();
@@ -51,14 +54,17 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                 }
                 if (qName.equals(AUTHOR) || qName.equals(EDITOR)) {
                      try {                        
-                        String temp = value.replaceAll("'","");
-                        author = this.authorBO.checkExitAuthor(temp);
-                        if (author ==null)
+                        author = new Author();
+                        author.setAuthorName(value);
+                        Integer id = dataSource.getId(DataType.AUTHOR, value);
+                        if (id == -1)
                         {
-                            author = new Author();
-                            author.setAuthorName(value);
+                            id = dataSource.addNewData(DataType.AUTHOR, value);
+                            author.setIdAuthor(id);
                             authorBO.addNew(author);
                         }
+                        else
+                            author.setIdAuthor(id);
                          authors.add(author);
                          author=null;
                     return;
@@ -71,22 +77,22 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                     return;
                 }
 
-                if(qName.equals(BOOKTITLE)){
-                    if(recordTag.equals(INPROCEEDINGS)){
-                        String temp = value.replaceAll("'","");
-                        conference = conferenceBO.checkExitConference(temp);
-                        if(conference == null)
-                        {
-                            conference = new Conference();
-                            conference.setConferenceName(value);
+                if (qName.equals(BOOKTITLE)) {
+                    if (recordTag.equals(INPROCEEDINGS)) {
+                        conference = new Conference();
+                        conference.setConferenceName(value);
+                        Integer id = dataSource.getId(DataType.CONFERENCE, value);
+                        if (id == -1) {
+                            id = dataSource.addNewData(DataType.CONFERENCE, value);
+                            conference.setIdConference(id);
                             conferenceBO.addNew(conference);
                             this.paper.setConference(conference);
-                            conference=null;
+                            conference = null;
+                            return;
+                        } else {
+                            this.paper.setTitle(value);
                             return;
                         }
-                    }else {
-                        this.paper.setTitle(value);
-                        return;
                     }
                 }
 
@@ -106,15 +112,17 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                 }
                 if(qName.equals(JOURNAL)){
                     try {
-                        String temp = value.replaceAll("'","");
-                        journal = this.journalBO.checkExitJournal(temp);
-                        if (journal ==null)
+                        journal = new Journal();
+                        journal.setJournalName(value);
+                        Integer id = dataSource.getId(DataType.JOURNAL, value);
+                        if (id == -1)
                         {
-                            journal = new Journal();
-                            journal.setJournalName(value);
+                            id = dataSource.addNewData(DataType.JOURNAL, value);
+                            journal.setIdJournal(id);
                             journalBO.addNew(journal);
                         }
-
+                        else
+                            journal.setIdJournal(id);
                         this.paper.setJournal(journal);
                         journal =null;                        
                         return;
@@ -158,6 +166,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                     return;
                 }
 
+                /*
                 if(qName.equals(PUBLISHER)){
                      try {
                         String temp = value.replaceAll("'","");
@@ -175,8 +184,8 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                     } catch (Exception ex) {
                         Logger.getLogger(CSPublicationSAXEventHandler.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
-
+                }*/
+                            
                 if(qName.equals(CROSSREF)){
                     this.paper.setCrossref(value);
                     return;
@@ -204,7 +213,14 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
 
                 if (qName.equals(recordTag)) {
                     this.paper.setAuthors(authors);
-                    this.paperBO.addNew(paper);
+                    Integer id = dataSource.getId(DataType.PAPER, paper.getTitle());
+                    if (id == -1)
+                    {
+                        id = dataSource.addNewData(DataType.PAPER, paper.getTitle());
+                        paper.setIdPaper(id);
+                        this.paperBO.addNew(paper);
+                    }
+                    
                     if(this.authors != null){
                         this.authors = null;
                     }
@@ -254,6 +270,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
             this.paper.setDblpKey(attributes.getValue("key"));            
             if(!recordTag.equals(WWW)&&!recordTag.equals(PROCEEDINGS))
             {
+                /*
                 papertype = this.paperTypeBO.checkExitPaperType(qName);
                 if (papertype ==null)
                 {
@@ -267,6 +284,7 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                 }
                 this.paper.setPaperType(papertype);
                 papertype=null;
+                */
             }
             return;
         }
