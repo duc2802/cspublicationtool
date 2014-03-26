@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Dec 4, 2011 5:00:44 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="uit.tkorg.cspublicationtool.entities.Magazine" table="magazine" catalog="cspublicationcrawler">
+    <class name="uit.tkorg.cspublicationtool.entities.Magazine" table="magazine" catalog="cspubguru">
         <id name="idMagazine" type="java.lang.Integer">
             <column name="idMagazine" />
             <generator class="identity" />

@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Dec 4, 2011 5:00:44 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="uit.tkorg.cspublicationtool.entities.RankOrgKeyword" table="_rank_org_keyword" catalog="cspublicationcrawler">
+    <class name="uit.tkorg.cspublicationtool.entities.RankOrgKeyword" table="_rank_org_keyword" catalog="cspubguru">
         <composite-id name="id" class="uit.tkorg.cspublicationtool.entities.RankOrgKeywordId">
             <key-property name="idOrg" type="int">
                 <column name="idOrg" />

@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Dec 4, 2011 5:00:44 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="uit.tkorg.cspublicationtool.entities.RankPaperSubdomain" table="_rank_paper_subdomain" catalog="cspublicationcrawler">
+    <class name="uit.tkorg.cspublicationtool.entities.RankPaperSubdomain" table="_rank_paper_subdomain" catalog="cspubguru">
         <composite-id name="id" class="uit.tkorg.cspublicationtool.entities.RankPaperSubdomainId">
             <key-property name="idPaper" type="int">
                 <column name="idPaper" />

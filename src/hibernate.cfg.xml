@@ -4,14 +4,14 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cspublicationcrawler</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cspubguru</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root</property>
     <property name="hibernate.transaction.auto_close_session">false</property>
     <property name="hibernate.transaction.flush_before_completion">true</property>
     <property name="hibernate.connection.pool_size">500</property>
     <property name="hibernate.jdbc.batch_size">50</property>
-    <property name="hibernate.cache.use_second_level_cache">false</property> 
+    <property name="hibernate.cache.use_second_level_cache">false</property>
     <!--
     <property name="hibernate.c3p0.min_size">5</property>
     <property name="hibernate.c3p0.max_size">20</property>
