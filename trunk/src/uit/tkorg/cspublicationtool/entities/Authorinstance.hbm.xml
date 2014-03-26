@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Dec 4, 2011 5:00:44 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="uit.tkorg.cspublicationtool.entities.Authorinstance" table="authorinstance" catalog="cspublicationcrawler">
+    <class name="uit.tkorg.cspublicationtool.entities.Authorinstance" table="authorinstance" catalog="cspubguru">
         <id name="autoId" type="java.lang.Integer">
             <column name="autoID" />
             <generator class="identity" />

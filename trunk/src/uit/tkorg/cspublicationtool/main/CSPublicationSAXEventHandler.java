@@ -219,6 +219,11 @@ public final class CSPublicationSAXEventHandler extends DefaultHandler {
                         id = dataSource.addNewData(DataType.PAPER, paper.getTitle());
                         paper.setIdPaper(id);
                         this.paperBO.addNew(paper);
+                        
+                        for (Author a : authors)
+                        {
+                            AuthorPaperBO.insertAuthorPaper(a.getIdAuthor(), paper.getIdPaper());
+                        }
                     }
                     
                     if(this.authors != null){
